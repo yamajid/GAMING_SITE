@@ -1,0 +1,336 @@
+/**
+ * Gaming Coins Hub - Global CSS with SEO-Optimized Colors
+ * Modern gaming aesthetic with accessibility in mind
+ */
+
+:root {
+  /* Primary Gaming Purple - Modern & Bold */
+  --ifm-color-primary: #667eea;
+  --ifm-color-primary-dark: #5568d3;
+  --ifm-color-primary-darker: #4854b8;
+  --ifm-color-primary-darkest: #3a40a0;
+  --ifm-color-primary-light: #7a8ef5;
+  --ifm-color-primary-lighter: #8d9df8;
+  --ifm-color-primary-lightest: #a0acfb;
+
+  /* Secondary Colors - Gaming Accent */
+  --ifm-color-secondary: #764ba2;
+  --ifm-color-success: #10b981;
+  --ifm-color-warning: #f59e0b;
+  --ifm-color-danger: #ef4444;
+  --ifm-color-info: #0ea5e9;
+
+  /* Gaming Theme - Vibrant & Engaging */
+  --color-gaming-purple: #667eea;
+  --color-gaming-pink: #f093fb;
+  --color-gaming-blue: #4facfe;
+  --color-gaming-dark: #0f0f1e;
+  --color-gaming-light: #f8f9ff;
+
+  /* Typography */
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --ifm-font-family-monospace: 'Inconsolata', 'Menlo', 'Ubuntu Mono',
+    'Consolas', 'source-code-pro', monospace;
+  --ifm-heading-font-weight: 800;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(102, 126, 234, 0.1);
+
+  /* Spacing */
+  --ifm-spacing-horizontal: 1.5rem;
+  --ifm-spacing-vertical: 1.5rem;
+
+  /* Border Radius */
+  --ifm-global-border-radius: 12px;
+  --ifm-button-border-radius: 50px;
+
+  /* Transitions */
+  --ifm-transition-duration: 0.35s;
+  --ifm-transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Shadows */
+  --ifm-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --ifm-box-shadow-hover: 0 12px 40px rgba(102, 126, 234, 0.15);
+
+  /* Links */
+  --ifm-link-color: #667eea;
+  --ifm-link-hover-color: #764ba2;
+}
+
+/* Dark Mode - Gaming Theme Enhanced */
+[data-theme='dark'] {
+  --ifm-color-primary: #667eea;
+  --ifm-color-primary-dark: #5568d3;
+  --ifm-color-primary-darker: #4854b8;
+  --ifm-color-primary-darkest: #3a40a0;
+  --ifm-color-primary-light: #8d9df8;
+  --ifm-color-primary-lighter: #a0acfb;
+  --ifm-color-primary-lightest: #b3bbfd;
+
+  --ifm-background-color: #0f0f1e;
+  --ifm-background-surface-color: #1a1a2e;
+  --ifm-card-background-color: #25254e;
+
+  --docusaurus-highlighted-code-line-bg: rgba(102, 126, 234, 0.2);
+  --docusaurus-message-background: rgba(102, 126, 234, 0.1);
+}
+
+/* Light Mode - Clean & Professional */
+[data-theme='light'] {
+  --ifm-background-color: #f8f9ff;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-card-background-color: #ffffff;
+  --docusaurus-highlighted-code-line-bg: rgba(102, 126, 234, 0.08);
+}
+
+/* Global Enhancements */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings - Gaming Bold */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+/* Links with hover effect */
+a {
+  transition: color var(--ifm-transition-duration)
+    var(--ifm-transition-timing-function);
+  font-weight: 600;
+}
+
+a:hover {
+  color: var(--ifm-link-hover-color);
+}
+
+/* Buttons - Gaming Style */
+.button {
+  border-radius: var(--ifm-button-border-radius);
+  font-weight: 700;
+  transition: all var(--ifm-transition-duration)
+    var(--ifm-transition-timing-function);
+  text-transform: none;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.button--primary:hover {
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.button--secondary {
+  background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
+  border: none;
+}
+
+/* Cards - Gaming Aesthetic */
+[class*='card'] {
+  border-radius: var(--ifm-global-border-radius);
+  border: 1px solid rgba(102, 126, 234, 0.1);
+  box-shadow: var(--ifm-box-shadow);
+  transition: all var(--ifm-transition-duration)
+    var(--ifm-transition-timing-function);
+}
+
+[class*='card']:hover {
+  box-shadow: var(--ifm-box-shadow-hover);
+  transform: translateY(-4px);
+}
+
+/* Code Blocks - Gaming Purple */
+code {
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 6px;
+  padding: 2px 6px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+pre {
+  background: linear-gradient(to right, #0f0f1e, #1a1a2e);
+  border-radius: var(--ifm-global-border-radius);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 5px solid #667eea;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  background: linear-gradient(to right, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+}
+
+th {
+  color: var(--ifm-color-primary);
+  font-weight: 800;
+  padding: 1rem;
+  text-align: left;
+}
+
+td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+tr:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+/* Lists */
+li {
+  margin-bottom: 0.5rem;
+}
+
+ul, ol {
+  margin: 1rem 0;
+}
+
+/* Vertical Tab */
+.tabs {
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: var(--ifm-global-border-radius);
+  overflow: hidden;
+}
+
+/* Admonitions - Custom Colors */
+.alert {
+  border-radius: var(--ifm-global-border-radius);
+  border-left: 5px solid;
+}
+
+.alert--note {
+  border-left-color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.alert--tip {
+  border-left-color: #10b981;
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.alert--warning {
+  border-left-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.alert--danger {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.alert--info {
+  border-left-color: #0ea5e9;
+  background: rgba(14, 165, 233, 0.05);
+}
+
+.alert--success {
+  border-left-color: #10b981;
+  background: rgba(16, 185, 129, 0.05);
+}
+
+/* Navbar - Gaming Purple */
+.navbar {
+  background: linear-gradient(to right, rgba(102, 126, 234, 0.08), rgba(240, 147, 251, 0.08));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.navbar__title {
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(to bottom, #0f0f1e, #1a1a2e);
+  border-top: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+/* Accessibility - Focus States */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Performance Optimization */
+.button,
+.navbar,
+[class*='card'],
+a {
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  :root {
+    --ifm-background-color: white;
+    --ifm-background-surface-color: white;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  .navbar,
+  .footer,
+  .button--outline {
+    background: white;
+    color: black;
+  }
+}
