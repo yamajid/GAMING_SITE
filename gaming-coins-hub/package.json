@@ -17,6 +17,9 @@
   "dependencies": {
     "@docusaurus/core": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
+    "@docusaurus/plugin-sitemap": "3.9.2",
+    "@docusaurus/plugin-google-analytics": "3.9.2",
+    "@docusaurus/plugin-google-tag-manager": "3.9.2",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
     "prism-react-renderer": "^2.3.0",
@@ -25,7 +28,8 @@
     "axios": "^1.7.7",
     "cheerio": "^1.0.0",
     "node-cron": "^3.0.2",
-    "@octokit/rest": "^20.1.1"
+    "@octokit/rest": "^20.1.1",
+    "@anthropic-ai/sdk": "^0.24.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",

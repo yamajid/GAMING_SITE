@@ -11,35 +11,50 @@ class Config {
   }
 
   loadConfig() {
-    // Required environment variables
-    const required = [
-      'REDDIT_CLIENT_ID',
-      'REDDIT_CLIENT_SECRET',
+    // Critical environment variables
+    const critical = [
       'GITHUB_TOKEN',
+    ];
+
+    // Required for enhanced content generation
+    const recommended = [
+      'CLAUDE_API_KEY',
     ];
 
     // Optional environment variables
     const optional = {
       AUTOMATION_SCHEDULE: '0 2 * * *', // 2:00 AM UTC daily
-      CLAUDE_API_KEY: null,
+      REDDIT_CLIENT_ID: null,
+      REDDIT_CLIENT_SECRET: null,
       VERCEL_TOKEN: null,
       VERCEL_PROJECT_ID: null,
       VERCEL_WEBHOOK: null,
-      GITHUB_OWNER: 'your-username',
-      GITHUB_REPO: 'gaming-coins-hub',
+      GITHUB_OWNER: 'yamajid',
+      GITHUB_REPO: 'GAMING_SITE',
       SLACK_WEBHOOK: null,
       DISCORD_WEBHOOK: null,
       EMAIL_WEBHOOK: null,
       DEBUG: 'false',
       DRY_RUN: 'false',
+      GOOGLE_ANALYTICS_ID: null,
+      GTM_CONTAINER_ID: null,
+      TWITTER_ACCOUNT: '@GamingCoinsHub',
     };
 
-    // Load required variables
-    required.forEach(key => {
+    // Load critical variables (must have)
+    critical.forEach(key => {
       if (!process.env[key]) {
-        logger.error(`Missing required env var: ${key}`);
+        logger.error(`❌ CRITICAL: Missing required env var: ${key}`);
       }
       this.config[key] = process.env[key];
+    });
+
+    // Load recommended variables (warn if missing)
+    recommended.forEach(key => {
+      if (!process.env[key]) {
+        logger.warn(`⚠️ RECOMMENDED: Missing ${key} - Content quality will be lower`);
+      }
+      this.config[key] = process.env[key] || null;
     });
 
     // Load optional variables with defaults
@@ -59,10 +74,23 @@ class Config {
 
     // Log startup configuration
     logger.header('⚙️  Automation Configuration Loaded');
-    logger.info(`Schedule: ${this.config.AUTOMATION_SCHEDULE} (cron format)`);
-    logger.info(`GitHub Repo: ${this.config.GITHUB_OWNER}/${this.config.GITHUB_REPO}`);
-    logger.info(`Debug Mode: ${this.config.DEBUG === 'true' ? '✓ Enabled' : '✗ Disabled'}`);
-    logger.info(`Dry Run: ${this.config.DRY_RUN === 'true' ? '✓ Enabled (no commits)' : '✗ Disabled (will publish)'}`);
+    logger.info(`📅 Schedule: ${this.config.AUTOMATION_SCHEDULE} (cron format)`);
+    logger.info(`🐙 GitHub: ${this.config.GITHUB_OWNER}/${this.config.GITHUB_REPO}`);
+    
+    // Claude API status
+    if (this.config.CLAUDE_API_KEY) {
+      logger.success(`✅ Claude API: Ready for AI content generation`);
+    } else {
+      logger.warn(`⚠️  Claude API: Not configured - using template generation only`);
+    }
+
+    logger.info(`🐛 Debug Mode: ${this.config.DEBUG === 'true' ? '✓ Enabled' : '✗ Disabled'}`);
+    logger.info(`🔒 Dry Run: ${this.config.DRY_RUN === 'true' ? '✓ Enabled (no commits)' : '✗ Disabled (will publish)'}`);
+    
+    // SEO tracking
+    if (this.config.GOOGLE_ANALYTICS_ID) {
+      logger.info(`📊 Google Analytics: Configured`);
+    }
   }
 
   get(key) {

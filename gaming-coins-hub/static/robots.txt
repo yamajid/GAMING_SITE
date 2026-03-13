@@ -1,0 +1,31 @@
+# Gaming Coins Hub - SEO Crawler Configuration
+
+# Allow all crawlers to index the site
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Specific crawler rules for performance
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# Block low-value crawlers
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://gamingcoinshub.com/sitemap.xml
+Sitemap: https://gamingcoinshub.com/sitemap-0.xml
+
+# Crawl-delay for general crawlers
+Crawl-delay: 1
+Request-rate: 1/1s

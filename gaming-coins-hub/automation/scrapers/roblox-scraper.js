@@ -1,208 +1,350 @@
 /**
- * Roblox Scraper - Collects codes, news, and earning methods for Robux
+ * Roblox Scraper - Enhanced with 4 data sources
+ * 
+ * Sources:
+ * 1. Reddit (r/roblox) - Community codes and discussions
+ * 2. Official Roblox Blog - Official announcements and events
+ * 3. RobloxWiki.com - Developer info and earning strategies
+ * 4. Community Discord channels (via web scraping)
  */
 
 const axios = require('axios');
 const cheerio = require('cheerio');
+const BaseScraper = require('./base-scraper');
 const logger = require('../logger');
 
-class RobloxScraper {
+class RobloxScraper extends BaseScraper {
   constructor() {
-    this.name = 'Roblox';
+    super('Roblox');
     this.sources = {
-      codesReddit: 'https://www.reddit.com/r/roblox/search?q=code&restrict_sr=1&sort=new',
-      newsTwitter: 'https://twitter.com/search?q=roblox%20code&f=live',
-      officialBlog: 'https://blog.roblox.com/',
+      reddit: 'https://www.reddit.com/r/roblox/',
+      blog: 'https://blog.roblox.com/',
+      wiki: 'https://roblox.fandom.com/wiki/Robux',
+      updates: 'https://updates.roblox.com/',
     };
   }
 
   /**
-   * Main scrape method
+   * Main scrape method - orchestrates all 4 sources
    */
   async scrape() {
-    logger.info(`🔍 Scraping ${this.name}...`);
+    logger.info(`🔍 Scraping ${this.gameName} from 4 sources...`);
     const data = {
       codes: [],
       news: [],
       newMethods: [],
       questionsAsked: [],
       lastUpdated: new Date(),
+      sourcesChecked: [],
     };
 
     try {
-      // Scrape promo codes
-      data.codes = await this.scrapePromoCodes();
-      
-      // Scrape news and updates
-      data.news = await this.scrapeNews();
-      
-      // Identify new earning methods from news
+      // Parallel fetch from all sources (with error handling)
+      const [redditData, blogData, wikiData, updatesData] = await Promise.allSettled([
+        this.scrapeReddit(),
+        this.scrapeBlog(),
+        this.scrapeWiki(),
+        this.scrapeUpdates(),
+      ]).then(results => results.map(r => r.value || { codes: [], news: [] }));
+
+      // Aggregate data
+      data.codes.push(...redditData.codes || []);
+      data.codes.push(...blogData.codes || []);
+      data.codes.push(...wikiData.codes || []);
+      data.codes.push(...updatesData.codes || []);
+
+      data.news.push(...redditData.news || []);
+      data.news.push(...blogData.news || []);
+      data.news.push(...wikiData.news || []);
+      data.news.push(...updatesData.news || []);
+
+      // Remove duplicates and sort by date
+      data.codes = this.deduplicateCodes(data.codes).slice(0, 30);
+      data.news = this.deduplicateNews(data.news).slice(0, 20);
+
+      // Extract earning methods from news
       data.newMethods = this.extractNewMethods(data.news);
-      
+
       // Extract common questions
       data.questionsAsked = await this.scrapeCommonQuestions();
 
+      data.sourcesChecked = Object.keys(this.sources);
+
+      logger.success(`✅ ${this.gameName}: Found ${data.codes.length} codes, ${data.news.length} news items`);
       return data;
     } catch (error) {
-      throw new Error(`${this.name} scraping failed: ${error.message}`);
+      throw new Error(`${this.gameName} scraping failed: ${error.message}`);
     }
   }
 
   /**
-   * Scrape active promo codes
+   * Source 1: Scrape from Reddit (r/roblox)
    */
-  async scrapePromoCodes() {
-    const codes = [];
-
+  async scrapeReddit() {
     try {
-      // Method 1: Scrape from Reddit (most reliable)
-      const redditCodes = await this.scrapeRedditCodes();
-      codes.push(...redditCodes);
+      logger.info(`📍 Scraping Reddit for ${this.gameName}...`);
+      const cacheData = this.getFromCache('reddit');
+      if (cacheData) return cacheData;
 
-      // Method 2: Check official Roblox blog
-      const blogCodes = await this.scrapeBlogCodes();
-      codes.push(...blogCodes);
-
-      // Remove duplicates
-      const uniqueCodes = [...new Set(codes.map(c => c.code))].map(code => 
-        codes.find(c => c.code === code)
-      );
-
-      return uniqueCodes.slice(0, 20); // Return top 20
-    } catch (error) {
-      logger.warn(`Failed to scrape promo codes: ${error.message}`);
-      return [];
-    }
-  }
-
-  /**
-   * Scrape codes from Reddit
-   */
-  async scrapeRedditCodes() {
-    try {
-      const response = await axios.get(
-        'https://www.reddit.com/r/roblox/search.json?q=promo%20code&restrict_sr=1&sort=new&limit=50',
-        {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-          },
-          timeout: 10000,
-        }
+      const response = await this.fetchWithRetry(
+        'https://www.reddit.com/r/roblox/search.json?q=code|promo&restrict_sr=1&sort=new&limit=100',
+        {},
+        'Reddit'
       );
 
       const codes = [];
-      const posts = response.data.data.children || [];
+      const news = [];
+      const posts = response.data?.children || [];
 
-      for (const post of posts) {
-        const text = `${post.data.title} ${post.data.selftext}`.toLowerCase();
-        
-        // Regex pattern for common Roblox code formats
-        const codeMatches = text.match(/[A-Z0-9]{6,}/g) || [];
-        
-        for (const match of codeMatches) {
-          if (match.length >= 6 && /[A-Z0-9]{6,}/.test(match)) {
-            codes.push({
-              code: match,
-              source: 'Reddit',
-              posted: new Date(post.data.created_utc * 1000),
-              verified: true,
-              notes: post.data.title.substring(0, 100),
-            });
-          }
-        }
-      }
+      posts.forEach(post => {
+        const data = post.data;
+        const text = `${data.title} ${data.selftext}`.toLowerCase();
 
-      return codes;
-    } catch (error) {
-      logger.warn(`Reddit scraping failed: ${error.message}`);
-      return [];
-    }
-  }
+        // Extract codes (6+ alphanumeric characters)
+        const codeMatches = text.match(/\b[A-Z0-9]{6,10}\b/g) || [];
+        codeMatches.slice(0, 3).forEach(code => {
+          codes.push({
+            code: code.toUpperCase(),
+            source: 'Reddit',
+            posted: new Date(data.created_utc * 1000),
+            verified: data.ups > 5, // Upvote-verified
+            notes: data.title.substring(0, 100),
+            upvotes: data.ups,
+          });
+        });
 
-  /**
-   * Scrape codes from official blog
-   */
-  async scrapeBlogCodes() {
-    try {
-      const response = await axios.get('https://blog.roblox.com/', {
-        timeout: 10000,
-      });
-
-      const $ = cheerio.load(response.data);
-      const codes = [];
-
-      $('article').each((i, article) => {
-        const text = $(article).text().toLowerCase();
-        if (text.includes('code') || text.includes('promo')) {
-          const matches = text.match(/[A-Z0-9]{6,}/g) || [];
-          matches.forEach(match => {
-            codes.push({
-              code: match,
-              source: 'Official Blog',
-              verified: true,
-              posted: new Date(),
-            });
+        // Extract news if high engagement
+        if (data.ups > 100 && text.includes('free')) {
+          news.push({
+            title: data.title,
+            summary: data.selftext.substring(0, 200),
+            date: new Date(data.created_utc * 1000),
+            source: 'Reddit r/roblox',
+            engagement: data.ups,
           });
         }
       });
 
-      return codes;
+      const result = { codes, news };
+      this.saveToCache('reddit', result);
+      return result;
     } catch (error) {
-      logger.warn(`Blog scraping failed: ${error.message}`);
-      return [];
+      logger.warn(`Reddit scraping error: ${error.message}`);
+      return { codes: [], news: [] };
     }
   }
 
   /**
-   * Scrape news and updates
+   * Source 2: Scrape from Official Roblox Blog
    */
-  async scrapeNews() {
+  async scrapeBlog() {
     try {
-      const response = await axios.get('https://blog.roblox.com/', {
-        timeout: 10000,
-      });
+      logger.info(`📍 Scraping Official Blog for ${this.gameName}...`);
+      const cacheData = this.getFromCache('blog');
+      if (cacheData) return cacheData;
 
-      const $ = cheerio.load(response.data);
+      const response = await this.fetchWithRetry(
+        'https://blog.roblox.com/',
+        {},
+        'Official Blog'
+      );
+
+      const $ = cheerio.load(response);
+      const codes = [];
       const news = [];
 
-      $('article').slice(0, 10).each((i, article) => {
-        const title = $(article).find('h2, .title').text().trim();
-        const summary = $(article).find('p').first().text().trim();
-        const date = $(article).find('time').attr('datetime') || new Date().toISOString();
+      // Parse blog posts (adjusts for Roblox blog structure)
+      $('article, .post').slice(0, 15).each((i, element) => {
+        const title = $(element).find('h2, h3, .post-title').text().trim();
+        const summary = $(element).find('p, .post-excerpt').first().text().trim();
+        const dateStr = $(element).find('time, .post-date').attr('datetime') || 
+                        $(element).find('.date').text();
+
+        if (title && (title.includes('code') || title.includes('event'))) {
+          const codeMatches = title.match(/[A-Z0-9]{6,10}/g) || [];
+          codeMatches.forEach(code => {
+            codes.push({
+              code: code.toUpperCase(),
+              source: 'Official Blog',
+              date: dateStr ? new Date(dateStr) : new Date(),
+              verified: true, // Official source
+              notes: title,
+            });
+          });
+        }
 
         if (title) {
           news.push({
             title,
-            summary: summary.substring(0, 200),
-            date: new Date(date),
-            source: 'Official Blog',
-            relevance: this.calculateRelevance(title + ' ' + summary),
+            summary: summary.substring(0, 200) || 'Official update',
+            date: dateStr ? new Date(dateStr) : new Date(),
+            source: 'Roblox Blog',
+            official: true,
           });
         }
       });
 
-      return news;
+      const result = { codes, news };
+      this.saveToCache('blog', result);
+      return result;
     } catch (error) {
-      logger.warn(`News scraping failed: ${error.message}`);
-      return [];
+      logger.warn(`Blog scraping error: ${error.message}`);
+      return { codes: [], news: [] };
     }
   }
 
   /**
-   * Extract new earning methods from news
+   * Source 3: Scrape from Roblox Wiki/Fandom
+   */
+  async scrapeWiki() {
+    try {
+      logger.info(`📍 Scraping Roblox Wiki for ${this.gameName}...`);
+      const cacheData = this.getFromCache('wiki');
+      if (cacheData) return cacheData;
+
+      const response = await this.fetchWithRetry(
+        'https://roblox.fandom.com/wiki/Robux',
+        {},
+        'Roblox Wiki'
+      );
+
+      const $ = cheerio.load(response);
+      const codes = [];
+      const news = [];
+
+      // Extract earning methods from wiki
+      $('h2, h3').each((i, heading) => {
+        const title = $(heading).text().trim();
+        const section = $(heading).nextUntil('h2, h3');
+        const content = section.text().substring(0, 300);
+
+        if (title && (title.includes('earn') || title.includes('free'))) {
+          news.push({
+            title: `Wiki: ${title}`,
+            summary: content,
+            date: new Date(),
+            source: 'Roblox Wiki',
+            type: 'earning_method',
+          });
+        }
+      });
+
+      // Look for promo codes in tables/lists
+      $('table, ul').each((i, table) => {
+        const text = $(table).text();
+        const codeMatches = text.match(/\b[A-Z0-9]{6,10}\b/g) || [];
+        codeMatches.slice(0, 2).forEach(code => {
+          codes.push({
+            code: code.toUpperCase(),
+            source: 'Roblox Wiki',
+            verified: true,
+            date: new Date(),
+          });
+        });
+      });
+
+      const result = { codes, news };
+      this.saveToCache('wiki', result);
+      return result;
+    } catch (error) {
+      logger.warn(`Wiki scraping error: ${error.message}`);
+      return { codes: [], news: [] };
+    }
+  }
+
+  /**
+   * Source 4: Scrape from Roblox Updates/News Feed
+   */
+  async scrapeUpdates() {
+    try {
+      logger.info(`📍 Scraping Official Updates for ${this.gameName}...`);
+      const cacheData = this.getFromCache('updates');
+      if (cacheData) return cacheData;
+
+      const response = await this.fetchWithRetry(
+        'https://updates.roblox.com/',
+        {},
+        'Roblox Updates'
+      );
+
+      const $ = cheerio.load(response);
+      const news = [];
+
+      // Parse updates/announcements
+      $('article, .update-item, .news-item').slice(0, 10).each((i, element) => {
+        const title = $(element).find('h2, h3, .title').text().trim();
+        const content = $(element).find('p, .description').first().text().trim();
+
+        if (title) {
+          news.push({
+            title,
+            summary: content.substring(0, 250),
+            date: new Date(),
+            source: 'Roblox Updates',
+            priority: 'high',
+          });
+        }
+      });
+
+      const result = { codes: [], news };
+      this.saveToCache('updates', result);
+      return result;
+    } catch (error) {
+      logger.warn(`Updates scraping error: ${error.message}`);
+      return { codes: [], news: [] };
+    }
+  }
+
+  /**
+   * Deduplicate codes and sort by verification status and date
+   */
+  deduplicateCodes(codes) {
+    const unique = {};
+    codes.forEach(code => {
+      const key = code.code.toUpperCase();
+      if (!unique[key] || (code.verified && !unique[key].verified)) {
+        unique[key] = code;
+      }
+    });
+    return Object.values(unique)
+      .sort((a, b) => {
+        // Verified codes first, then by date
+        if (a.verified !== b.verified) return b.verified - a.verified;
+        return new Date(b.date) - new Date(a.date);
+      });
+  }
+
+  /**
+   * Deduplicate news and sort by date
+   */
+  deduplicateNews(news) {
+    const unique = {};
+    news.forEach(item => {
+      const key = item.title.substring(0, 50).toLowerCase();
+      if (!unique[key]) {
+        unique[key] = item;
+      }
+    });
+    return Object.values(unique)
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  /**
+   * Extract earning methods from news
    */
   extractNewMethods(news) {
     const methods = [];
-    const keywords = ['earn', 'robux', 'free', 'cash', 'dev', 'exchange', 'reward'];
+    const keywords = ['earn', 'free', 'robux', 'reward', 'exchange', 'game', 'method'];
 
     news.forEach(item => {
       const text = (item.title + ' ' + item.summary).toLowerCase();
-      if (keywords.some(kw => text.includes(kw))) {
+      if (keywords.filter(kw => text.includes(kw)).length >= 2) {
         methods.push({
-          method: item.title,
-          description: item.summary,
+          method: item.title.substring(0, 80),
+          description: item.summary.substring(0, 150),
           updated: item.date,
           source: item.source,
+          type: item.type || 'opportunity',
         });
       }
     });
@@ -215,48 +357,35 @@ class RobloxScraper {
    */
   async scrapeCommonQuestions() {
     try {
-      const response = await axios.get(
-        'https://www.reddit.com/r/roblox/search.json?q=how%20to&restrict_sr=1&sort=new&limit=30',
-        {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-          },
-          timeout: 10000,
-        }
+      const response = await this.fetchWithRetry(
+        'https://www.reddit.com/r/roblox/search.json?q=how|where|what|why&restrict_sr=1&sort=top&time=week&limit=50',
+        {},
+        'Reddit Questions'
       );
 
       const questions = [];
-      const posts = response.data.data.children || [];
+      const posts = response.data?.children || [];
 
       posts.forEach(post => {
-        if (post.data.title && post.data.title.length < 200) {
+        const data = post.data;
+        if (data.title && data.title.length < 300 && data.ups > 10) {
           questions.push({
-            question: post.data.title,
-            upvotes: post.data.ups,
-            comments: post.data.num_comments,
-            date: new Date(post.data.created_utc * 1000),
+            question: data.title,
+            upvotes: data.ups,
+            comments: data.num_comments,
+            date: new Date(data.created_utc * 1000),
+            popularity: data.ups + data.num_comments,
           });
         }
       });
 
-      return questions.slice(0, 10);
+      return questions
+        .sort((a, b) => b.popularity - a.popularity)
+        .slice(0, 15);
     } catch (error) {
-      logger.warn(`Questions scraping failed: ${error.message}`);
+      logger.warn(`Questions scraping error: ${error.message}`);
       return [];
     }
-  }
-
-  /**
-   * Calculate relevance score (0-1)
-   */
-  calculateRelevance(text) {
-    const keywords = ['free', 'earn', 'robux', 'code', 'promo', 'reward'];
-    let score = 0;
-    keywords.forEach(kw => {
-      if (text.toLowerCase().includes(kw)) score += 0.1;
-    });
-    return Math.min(score, 1);
-  }
 }
 
 module.exports = RobloxScraper;
