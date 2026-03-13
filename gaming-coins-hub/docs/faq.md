@@ -77,7 +77,6 @@ Welcome to the **Gaming Coins Hub FAQ Center**! Here you'll find answers to **50
 ## 📚 Browse By Topic
 
 ### 💰 How to Earn Free Currency (All Games)
-Check our detailed [Comprehensive FAQ Research](/COMPREHENSIVE_FAQ_RESEARCH.md) for 500+ questions and complete methodology.
 | Game | Best Method | Monthly Earning | Time |
 |------|-------------|-----------------|------|
 | **Roblox** | Premium subscription | 3000+ Robux | $5-20/month |
@@ -255,8 +254,8 @@ All provided methods are F2P viable!
 ## 🔗 Extra Resources
 
 ### Research & Data
-- **[Comprehensive FAQ Research](/COMPREHENSIVE_FAQ_RESEARCH.md)** - 500+ questions researched from web
-- **[Deployment Checklist](/DEPLOYMENT_CHECKLIST.md)** - Complete launch guide
+- **Comprehensive FAQ Research** - 500+ questions researched from web (see documentation)
+- **Deployment Checklist** - Complete launch guide (see documentation)
 
 ### Community
 - **Join our Discord** - Ask questions, share finds
