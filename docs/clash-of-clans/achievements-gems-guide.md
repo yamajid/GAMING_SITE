@@ -4,6 +4,12 @@ description: "Complete list of Clash of Clans achievements that reward gems. Get
 keywords: ["clash of clans gems", "clash of clans achievements gems", "free gems clash of clans", "coc gem guide"]
 sidebar_position: 1
 slug: achievements-gems-guide
+authors:
+  - name: Gaming Coins Hub
+    title: Clash of Clans Expert & Community Researcher
+    url: /about
+date: 2026-03-14
+tags: [Clash of Clans, Free Gems, Strategy]
 ---
 
 # Every Clash of Clans Achievement That Gives Gems

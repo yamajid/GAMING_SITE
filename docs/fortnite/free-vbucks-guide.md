@@ -4,6 +4,12 @@ description: "Complete guide to earning free V-Bucks in Fortnite 2026. Battle Pa
 keywords: ["free v-bucks", "how to get free v-bucks", "fortnite free v-bucks", "v-bucks generator"]
 sidebar_position: 1
 slug: free-vbucks-guide
+authors:
+  - name: Gaming Coins Hub
+    title: Fortnite Expert & Community Researcher
+    url: /about
+date: 2026-03-14
+tags: [Fortnite, Free V-Bucks, Battle Royale]
 ---
 
 # How to Get Free V-Bucks Without Spending Money in 2026
