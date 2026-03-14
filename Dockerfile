@@ -2,6 +2,9 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+# Install git and other required tools
+RUN apk add --no-cache git openssh-client
+
 # Copy package files
 COPY package*.json ./
 
@@ -12,12 +15,15 @@ RUN npm ci --omit=dev
 COPY automation/ ./automation/
 COPY docs/ ./docs/
 
-# Copy git config for commits
-RUN git config --global user.email "scraper@gamingcoinshub.com" && \
-    git config --global user.name "Gaming Scraper"
+# Configure git for commits
+RUN git config --global user.email "yamajid@student.1337.ma" && \
+    git config --global user.name "yamajid"
 
 # Install PM2 globally
 RUN npm install -g pm2
+
+# Create logs directory
+RUN mkdir -p logs
 
 # Expose for PM2 monitoring (optional)
 EXPOSE 9615

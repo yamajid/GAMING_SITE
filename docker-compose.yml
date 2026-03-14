@@ -5,19 +5,26 @@ services:
     build: .
     container_name: gaming-scraper
     restart: always
+    env_file:
+      - .env
     environment:
       - NODE_ENV=production
-      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
-      - GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID}
-      - GTM_CONTAINER_ID=${GTM_CONTAINER_ID}
-      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - LOG_LEVEL=info
     volumes:
       - /app/node_modules
-      - /app/docs:/app/docs
+      - ./docs:/app/docs
+      - ./automation:/app/automation
+      - ./logs:/app/logs
     ports:
       - "9615:9615"
     healthcheck:
-      test: ["CMD", "pm2", "info"]
+      test: ["CMD", "pm2", "status"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
