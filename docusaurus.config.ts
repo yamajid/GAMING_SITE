@@ -97,7 +97,7 @@ const config: Config = {
     metadata: [
       {
         name: 'google-site-verification',
-        content: 'P6n7MSBJrEyZbuITBnWmPHJA7J8d8HSwCAUWYJ_DoHU',
+        content: '8bmU6s5zjTFydusZd9LW5rOZe7yDjRkeqsojZBy8F6Q',
       },
       {
         name: 'description',
@@ -126,7 +126,7 @@ const config: Config = {
       },
       {
         property: 'og:url',
-        content: 'https://gamingcoinshub.com',
+        content: 'https://farmcoins.netlify.app',
       },
       {
         property: 'og:title',
