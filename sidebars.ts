@@ -11,8 +11,6 @@ const sidebars: SidebarsConfig = {
       label: '🎮 Roblox',
       items: [
         'roblox/earn-free-robux-2026',
-        'roblox/working-codes',
-        'roblox/premium-worth-it',
       ],
     },
     {
@@ -20,7 +18,6 @@ const sidebars: SidebarsConfig = {
       label: '⚡ Fortnite',
       items: [
         'fortnite/free-vbucks-guide',
-        'fortnite/working-codes',
       ],
     },
     {
@@ -28,7 +25,6 @@ const sidebars: SidebarsConfig = {
       label: '📱 Mobile Legends',
       items: [
         'mobile-legends/free-diamonds-guide',
-        'mobile-legends/working-codes',
       ],
     },
     {
@@ -36,7 +32,6 @@ const sidebars: SidebarsConfig = {
       label: '🏰 Clash of Clans',
       items: [
         'clash-of-clans/achievements-gems-guide',
-        'clash-of-clans/working-codes',
       ],
     },
   ],
