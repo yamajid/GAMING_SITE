@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkgaming_coins_hub=globalThis.webpackChunkgaming_coins_hub||[]).push([[9647],{7121(s,e,a){a.r(e),a.d(e,{default:()=>l});a(6540);var n=a(4164),r=a(7559),u=a(5500),c=a(2831),i=a(1656),h=a(4848);function l(s){return(0,h.jsx)(u.e3,{className:(0,n.A)(r.G.wrapper.docsPages),children:(0,h.jsx)(i.A,{children:(0,c.v)(s.route.routes)})})}}}]);
