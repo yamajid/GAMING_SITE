@@ -9,7 +9,8 @@ const logger = require('./logger');
 
 class Publisher {
   constructor() {
-    this.repoRoot = path.resolve(__dirname, '../..');
+    // automation/ is one level below project root → use '..'
+    this.repoRoot = path.resolve(__dirname, '..');
   }
 
   /** Alias - scheduler calls publishFiles */
