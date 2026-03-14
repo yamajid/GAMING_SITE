@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  scraper:
+    build: .
+    container_name: gaming-scraper
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID}
+      - GTM_CONTAINER_ID=${GTM_CONTAINER_ID}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+    volumes:
+      - /app/node_modules
+      - /app/docs:/app/docs
+    ports:
+      - "9615:9615"
+    healthcheck:
+      test: ["CMD", "pm2", "info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
