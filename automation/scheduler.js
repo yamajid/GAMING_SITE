@@ -18,7 +18,7 @@ const logger = require('./logger');
 const config = require('./config');
 const RobloxScraper = require('./scrapers/roblox-scraper');
 const FortniteScraper = require('./scrapers/fortnite-scraper');
-const MobileLegendsScraperaper = require('./scrapers/mobile-legends-scraper');
+const MobileLegendsScraper = require('./scrapers/mobile-legends-scraper');
 const ClashOfClansScraper = require('./scrapers/clash-of-clans-scraper');
 const ContentGenerator = require('./generator');
 const Publisher = require('./publisher');
@@ -28,7 +28,7 @@ class AutomationScheduler {
     this.scrapers = {
       roblox: new RobloxScraper(),
       fortnite: new FortniteScraper(),
-      mobileLegends: new MobileLegendsScraperaper(),
+      mobileLegends: new MobileLegendsScraper(),
       clashOfClans: new ClashOfClansScraper(),
     };
     this.generator = new ContentGenerator();

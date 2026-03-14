@@ -7,11 +7,16 @@ const logger = require('../logger');
 
 class Publisher {
   constructor(githubToken, vercelToken) {
-    this.githubToken = githubToken;
-    this.vercelToken = vercelToken;
+    this.githubToken = githubToken || process.env.GITHUB_TOKEN;
+    this.vercelToken = vercelToken || process.env.VERCEL_TOKEN;
     this.baseUrl = 'https://api.github.com';
-    this.owner = process.env.GITHUB_OWNER || 'your-username';
-    this.repo = process.env.GITHUB_REPO || 'gaming-coins-hub';
+    this.owner = process.env.GITHUB_OWNER || 'yamajid';
+    this.repo = process.env.GITHUB_REPO || 'GAMING_SITE';
+  }
+
+  /** Alias - scheduler calls publishFiles */
+  async publishFiles(generatedFiles) {
+    return this.publishContent(generatedFiles);
   }
 
   async publishContent(generatedFiles) {

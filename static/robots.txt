@@ -23,8 +23,8 @@ User-agent: DotBot
 Disallow: /
 
 # Sitemap location
-Sitemap: https://gamingcoinshub.com/sitemap.xml
-Sitemap: https://gamingcoinshub.com/sitemap-0.xml
+Sitemap: https://farmcoins.netlify.app/sitemap.xml
+Sitemap: https://farmcoins.netlify.app/sitemap-0.xml
 
 # Crawl-delay for general crawlers
 Crawl-delay: 1

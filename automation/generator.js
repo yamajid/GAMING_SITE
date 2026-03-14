@@ -117,6 +117,36 @@ Requirements:
     return this.templateCodesGuide(game, codes);
   }
 
+  /**
+   * Generate codes file for Publisher (returns {path, content})
+   * Called by scheduler
+   */
+  async generateCodesFile(gameName, codes, lastUpdated) {
+    const content = await this.generateCodesGuide(gameName, codes || []);
+    const path = `docs/${gameName}/working-codes.md`;
+    return { path, content };
+  }
+
+  /**
+   * Generate FAQ file for Publisher (returns {path, content})
+   * Called by scheduler
+   */
+  async generateFAQUpdate(gameName, news, questionsAsked) {
+    const content = await this.generateFAQUpdates(gameName, questionsAsked || []);
+    const path = `docs/${gameName}/faq.md`;
+    return { path, content };
+  }
+
+  /**
+   * Generate earning guide file for Publisher (returns {path, content})
+   * Called by scheduler
+   */
+  async generateEarningGuide(gameName, newMethods) {
+    const content = await this.generateMethodsGuide(gameName, newMethods || []);
+    const path = `docs/${gameName}/earning-guide.md`;
+    return { path, content };
+  }
+
   templateCodesGuide(game, codes) {
     let guide = `## Latest ${game} Codes (Updated ${new Date().toLocaleDateString()})\n\n`;
     

@@ -1,0 +1,54 @@
+# Daily Automation - FREE scheduled scraping & deployment
+# Runs at 2:00 AM UTC every day
+# Scrapes → Generates content → Pushes to GitHub → Netlify auto-deploys
+#
+# Required: Add these secrets in GitHub repo Settings → Secrets and variables → Actions:
+#   - REDDIT_CLIENT_ID (optional but recommended for scraping)
+#   - REDDIT_CLIENT_SECRET (optional)
+#   - CLAUDE_API_KEY (optional - better content quality with AI)
+#
+# GITHUB_TOKEN is automatic - no setup needed for pushing
+
+name: Daily Content Automation
+
+on:
+  schedule:
+    # 2:00 AM UTC every day (adjust to your timezone)
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # Allow manual trigger from Actions tab
+
+jobs:
+  scrape-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run daily automation (scrape → generate → publish)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_OWNER: yamajid
+          GITHUB_REPO: GAMING_SITE
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+        run: node automation/scheduler.js --once
+        continue-on-error: true  # Don't fail the job if scraping has issues
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "✅ Daily automation completed!"
+          echo "Netlify will auto-deploy when changes are pushed to main."

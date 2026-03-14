@@ -15,7 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://gamingcoinshub.com',
+  url: 'https://farmcoins.netlify.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -122,7 +122,7 @@ const config: Config = {
       },
       {
         property: 'og:url',
-        content: 'https://gamingcoinshub.com',
+        content: 'https://farmcoins.netlify.app',
       },
       {
         property: 'og:title',
@@ -134,7 +134,7 @@ const config: Config = {
       },
       {
         property: 'og:image',
-        content: 'https://gamingcoinshub.com/img/og-image.jpg',
+        content: 'https://farmcoins.netlify.app/img/og-image.jpg',
       },
       {
         property: 'og:image:width',
@@ -171,7 +171,7 @@ const config: Config = {
       },
       {
         name: 'twitter:image',
-        content: 'https://gamingcoinshub.com/img/twitter-card.jpg',
+        content: 'https://farmcoins.netlify.app/img/twitter-card.jpg',
       },
       // Mobile Optimization
       {
@@ -193,7 +193,7 @@ const config: Config = {
       // Canonical URL - Prevent duplicate content issues
       {
         rel: 'canonical',
-        href: 'https://gamingcoinshub.com',
+        href: 'https://farmcoins.netlify.app',
       },
     ],
     // Replace with your project's social card
