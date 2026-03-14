@@ -36,16 +36,6 @@ const config: Config = {
   },
 
   plugins: [
-    // SEO Sitemap Plugin - Generate XML sitemap for search engines
-    [
-      '@docusaurus/plugin-sitemap',
-      {
-        changefreq: 'weekly',
-        priority: 0.5,
-        ignorePatterns: ['/tags/**', '/docs/tutorial-*/**'],
-        filename: 'sitemap.xml',
-      },
-    ],
     // Google Analytics - Track user behavior for SEO insights
     [
       '@docusaurus/plugin-google-analytics',
