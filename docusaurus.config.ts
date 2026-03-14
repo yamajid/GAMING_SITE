@@ -96,6 +96,10 @@ const config: Config = {
     // Enhanced metadata for SEO - used for Open Graph, Twitter Cards
     metadata: [
       {
+        name: 'google-site-verification',
+        content: 'P6n7MSBJrEyZbuITBnWmPHJA7J8d8HSwCAUWYJ_DoHU',
+      },
+      {
         name: 'description',
         content: 'Ultimate guides to earn free in-game currency (Robux, V-Bucks, Diamonds, Gems). Legitimate methods only - no scams, no generators. Updated daily with fresh codes and strategies.',
       },
@@ -122,7 +126,7 @@ const config: Config = {
       },
       {
         property: 'og:url',
-        content: 'https://farmcoins.netlify.app',
+        content: 'https://gamingcoinshub.com',
       },
       {
         property: 'og:title',
