@@ -4,6 +4,13 @@ description: "Complete guide to earning free diamonds in Mobile Legends 2026 thr
 keywords: ["free diamonds mobile legends", "how to get free diamonds ml", "ml diamond codes", "mobile legends free diamonds"]
 sidebar_position: 1
 slug: free-diamonds-guide
+authors:
+  - name: Gaming Coins Hub
+    title: Mobile Legends Expert & Community Researcher
+    url: /about
+date: 2026-03-14
+last_update: 2026-03-14
+tags: [Mobile Legends, Free Diamonds, MOBA]
 ---
 
 # How to Get Free Diamonds in Mobile Legends 2026

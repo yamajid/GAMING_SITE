@@ -4,6 +4,13 @@ description: "7 proven ways to get free Robux without spending money or falling 
 keywords: ["free robux", "how to get free robux", "robux generator", "earn robux", "free robux no scam"]
 sidebar_position: 1
 slug: earn-free-robux-2026
+authors:
+  - name: Gaming Coins Hub
+    title: Roblox Expert & Community Researcher
+    url: /about
+date: 2026-03-14
+last_update: 2026-03-14
+tags: [Roblox, Free Robux, In-Game Currency]
 ---
 
 # How to Earn Free Robux Legitimately in 2026
