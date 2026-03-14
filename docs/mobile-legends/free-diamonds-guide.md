@@ -9,7 +9,6 @@ authors:
     title: Mobile Legends Expert & Community Researcher
     url: /about
 date: 2026-03-14
-last_update: 2026-03-14
 tags: [Mobile Legends, Free Diamonds, MOBA]
 ---
 
