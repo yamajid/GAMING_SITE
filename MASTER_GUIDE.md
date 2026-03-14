@@ -53,7 +53,7 @@
 
 ### Step 1: Run the Poster
 ```bash
-cd gaming-coins-hub
+cd gaming-coins-hub 
 node automation/reddit-one-click-poster.js --interactive
 ```
 
