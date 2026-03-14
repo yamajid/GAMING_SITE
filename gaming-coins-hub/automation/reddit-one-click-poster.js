@@ -15,8 +15,17 @@
 const fs = require('fs');
 const path = require('path');
 const open = require('open');
-const chalk = require('chalk');
 const readline = require('readline');
+
+// Simple color output (no chalk dependency)
+const colors = {
+  cyan: (text) => `\x1b[36m${text}\x1b[0m`,
+  green: (text) => `\x1b[32m${text}\x1b[0m`,
+  yellow: (text) => `\x1b[33m${text}\x1b[0m`,
+  red: (text) => `\x1b[31m${text}\x1b[0m`,
+  bold: { cyan: (text) => `\x1b[1m\x1b[36m${text}\x1b[0m`, green: (text) => `\x1b[1m\x1b[32m${text}\x1b[0m`, magenta: (text) => `\x1b[1m\x1b[35m${text}\x1b[0m` },
+  dim: (text) => `\x1b[2m${text}\x1b[0m`
+};
 
 class RedditOneClickPoster {
   constructor() {
@@ -149,27 +158,27 @@ Got questions about strategies? Comment below!`
   displayPost(subreddit, post) {
     console.log(`
 ┌─────────────────────────────────────────────────────────────────┐
-│ ${chalk.bold.magenta(`POST TO r/${subreddit}`)}
+│ ${colors.bold.magenta(`POST TO r/${subreddit}`)}
 └─────────────────────────────────────────────────────────────────┘
 
-${chalk.bold('Title:')}
-${chalk.cyan(post.title)}
+${colors.bold.cyan('Title:')}
+${colors.cyan(post.title)}
 
-${chalk.bold('Content:')}
+${colors.bold.cyan('Content:')}
 ${post.content}
 
-${chalk.bold('Links:')}
-📎 Reddit: ${chalk.blue(`https://reddit.com/r/${subreddit}/submit`)}
-📎 Your Site: ${chalk.blue('https://gamingcoinshub.com')}
+${colors.bold.cyan('Links:')}
+📎 Reddit: ${colors.cyan(`https://reddit.com/r/${subreddit}/submit`)}
+📎 Your Site: ${colors.cyan('https://gamingcoinshub.com')}
 
-${chalk.bold('Posting Steps:')}
+${colors.bold.cyan('Posting Steps:')}
 1. Title is copied below
 2. Content is copied below
 3. Click link → opens Reddit
 4. Paste title & content
 5. Click Post!
 
-${chalk.yellow('─'.repeat(65))}
+${colors.yellow('─'.repeat(65))}
 `);
   }
 
@@ -201,19 +210,19 @@ ${chalk.yellow('─'.repeat(65))}
     const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
     console.log(`
-${chalk.bold.cyan('╔═══════════════════════════════════════════════════════════════╗')}
-${chalk.bold.cyan('║')}  ${chalk.bold('🎯 Reddit One-Click Poster - No API Needed')}
-${chalk.bold.cyan('║')}  Simple • Safe • Reliable
-${chalk.bold.cyan('╚═══════════════════════════════════════════════════════════════╝')}
+${colors.bold.cyan('╔═══════════════════════════════════════════════════════════════╗')}
+${colors.bold.cyan('║')}  ${colors.bold.cyan('🎯 Reddit One-Click Poster - No API Needed')}
+${colors.bold.cyan('║')}  Simple • Safe • Reliable
+${colors.bold.cyan('╚═══════════════════════════════════════════════════════════════╝')}
 
-${chalk.yellow('📋 Available Posts:')}
+${colors.yellow('📋 Available Posts:')}
 `);
 
     this.subreddits.forEach((item, i) => {
-      console.log(`  ${chalk.cyan(`${i + 1}`)} → r/${item.sub}`);
+      console.log(`  ${colors.cyan(`${i + 1}`)} → r/${item.sub}`);
     });
 
-    console.log(`\n${chalk.yellow('How it works:')}`);
+    console.log(`\n${colors.yellow('How it works:')}`)
     console.log(`  1️⃣  I copy your post title & content`);
     console.log(`  2️⃣  Opens Reddit in your browser`);
     console.log(`  3️⃣  You paste (Ctrl+V) and click Post`);
@@ -223,7 +232,7 @@ ${chalk.yellow('📋 Available Posts:')}
 
     while (postMore) {
       const chosen = await question(
-        chalk.bold.cyan(`Which subreddit to post to? (1-${this.subreddits.length}, 0 to done): `)
+        colors.bold.cyan(`Which subreddit to post to? (1-${this.subreddits.length}, 0 to done): `)
       );
 
       const index = parseInt(chosen) - 1;
@@ -234,7 +243,7 @@ ${chalk.yellow('📋 Available Posts:')}
       }
 
       if (index < 0 || index >= this.subreddits.length) {
-        console.log(chalk.red('❌ Invalid choice\n'));
+        console.log(colors.red('❌ Invalid choice\n'));
         continue;
       }
 
@@ -246,11 +255,11 @@ ${chalk.yellow('📋 Available Posts:')}
 
       // Copy & open
       const ready = await question(
-        chalk.bold.green('Ready to post? (y to open Reddit, n to skip): ')
+        colors.bold.green('Ready to post? (y to open Reddit, n to skip): ')
       );
 
       if (ready.toLowerCase() === 'y') {
-        console.log(chalk.yellow(`\n✨ Copying post and opening Reddit...\n`));
+        console.log(colors.yellow(`\n✨ Copying post and opening Reddit...\n`));
 
         // Copy title
         this.copyToClipboard(post.title);
@@ -261,27 +270,27 @@ ${chalk.yellow('📋 Available Posts:')}
         // Open Reddit submit page
         try {
           await open(`https://reddit.com/r/${subreddit}/submit`);
-          console.log(chalk.green(`✅ Reddit opened in browser\n`));
+          console.log(colors.green(`✅ Reddit opened in browser\n`));
         } catch (error) {
-          console.log(chalk.red(`\nManually go to: https://reddit.com/r/${subreddit}/submit\n`));
+          console.log(colors.red(`\nManually go to: https://reddit.com/r/${subreddit}/submit\n`));
         }
 
         const posted = await question(
-          chalk.yellow('Did you post successfully? (y/n): ')
+          colors.yellow('Did you post successfully? (y/n): ')
         );
 
         if (posted.toLowerCase() === 'y') {
-          console.log(chalk.green(`✅ Great! Post to r/${subreddit} complete!\n`));
+          console.log(colors.green(`✅ Great! Post to r/${subreddit} complete!\n`));
 
           // Wait between posts
           const wait = await question(
-            chalk.yellow('Post to another subreddit? (y/n): ')
+            colors.yellow('Post to another subreddit? (y/n): ')
           );
 
           if (wait.toLowerCase() !== 'y') {
             postMore = false;
           } else {
-            console.log(chalk.yellow('⏳ Waiting 5 minutes before next post to avoid spam detection...\n'));
+            console.log(colors.yellow('⏳ Waiting 5 minutes before next post to avoid spam detection...\n'));
             await new Promise(r => setTimeout(r, 300000)); // 5 min
           }
         }
@@ -290,9 +299,9 @@ ${chalk.yellow('📋 Available Posts:')}
 
     rl.close();
     console.log(`
-${chalk.green('🎉 All done!')}
-${chalk.cyan('Your posts are now live on Reddit!')}
-${chalk.yellow('Monitor them for engagement and reply to comments.')}
+${colors.green('🎉 All done!')}
+${colors.cyan('Your posts are now live on Reddit!')}
+${colors.yellow('Monitor them for engagement and reply to comments.')}
     `);
   }
 
@@ -300,23 +309,23 @@ ${chalk.yellow('Monitor them for engagement and reply to comments.')}
    * Auto-post mode (testing)
    */
   async autoPostMode() {
-    console.log(chalk.bold.cyan('\n🤖 Auto-Post Mode (Display Only)\n'));
+    console.log(colors.bold.cyan('\n🤖 Auto-Post Mode (Display Only)\n'));
 
     for (const item of this.subreddits) {
       const post = this.posts[item.sub];
       this.displayPost(item.sub, post);
       
-      console.log(chalk.yellow('→ In production, Reddit would open here'));
-      console.log(chalk.yellow('→ User would paste and submit\n'));
+      console.log(colors.yellow('→ In production, Reddit would open here'));
+      console.log(colors.yellow('→ User would paste and submit\n'));
 
       // Wait between posts
       if (item !== this.subreddits[this.subreddits.length - 1]) {
-        console.log(chalk.dim('⏳ Waiting before next post...\n'));
+        console.log(colors.dim('⏳ Waiting before next post...\n'));
         await new Promise(r => setTimeout(r, 3000));
       }
     }
 
-    console.log(chalk.green('\n✅ All posts displayed (in interactive mode, Reddit opens)'));
+    console.log(colors.green('\n✅ All posts displayed (in interactive mode, Reddit opens)'));
   }
 }
 
