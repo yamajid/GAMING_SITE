@@ -117,13 +117,25 @@ Requirements:
     return this.templateCodesGuide(game, codes);
   }
 
+  /** Map scheduler game keys to docs folder names (kebab-case) */
+  static getDocsFolder(gameName) {
+    const map = {
+      roblox: 'roblox',
+      fortnite: 'fortnite',
+      mobileLegends: 'mobile-legends',
+      clashOfClans: 'clash-of-clans',
+    };
+    return map[gameName] || gameName;
+  }
+
   /**
    * Generate codes file for Publisher (returns {path, content})
    * Called by scheduler
    */
   async generateCodesFile(gameName, codes, lastUpdated) {
     const content = await this.generateCodesGuide(gameName, codes || []);
-    const path = `docs/${gameName}/working-codes.md`;
+    const folder = ContentGenerator.getDocsFolder(gameName);
+    const path = `docs/${folder}/working-codes.md`;
     return { path, content };
   }
 
@@ -133,7 +145,8 @@ Requirements:
    */
   async generateFAQUpdate(gameName, news, questionsAsked) {
     const content = await this.generateFAQUpdates(gameName, questionsAsked || []);
-    const path = `docs/${gameName}/faq.md`;
+    const folder = ContentGenerator.getDocsFolder(gameName);
+    const path = `docs/${folder}/faq.md`;
     return { path, content };
   }
 
@@ -143,7 +156,34 @@ Requirements:
    */
   async generateEarningGuide(gameName, newMethods) {
     const content = await this.generateMethodsGuide(gameName, newMethods || []);
-    const path = `docs/${gameName}/earning-guide.md`;
+    const folder = ContentGenerator.getDocsFolder(gameName);
+    const path = `docs/${folder}/earning-guide.md`;
+    return { path, content };
+  }
+
+  /**
+   * Generate latest-updates roundup file (returns {path, content})
+   * Brief summary of codes + news + methods for quick reference
+   */
+  async generateLatestUpdates(gameName, data) {
+    const codes = data.codes || [];
+    const news = data.news || [];
+    const methods = data.newMethods || [];
+    const date = new Date().toLocaleDateString();
+    let content = `## ${gameName} Latest Updates (${date})\n\n`;
+    content += `| Metric | Count |\n|--------|-------|\n`;
+    content += `| Active codes | ${codes.length} |\n`;
+    content += `| News items | ${news.length} |\n`;
+    content += `| Earning methods | ${methods.length} |\n\n`;
+    if (codes.length > 0) {
+      content += `### Top Codes\n${codes.slice(0, 3).map(c => `- \`${c.code}\` ${c.verified ? '✅' : ''}`).join('\n')}\n\n`;
+    }
+    if (news.length > 0) {
+      content += `### Recent News\n${news.slice(0, 2).map(n => `- ${n.title}`).join('\n')}\n\n`;
+    }
+    content += `See [working-codes](./working-codes.md), [faq](./faq.md), and [earning-guide](./earning-guide.md) for details.\n`;
+    const folder = ContentGenerator.getDocsFolder(gameName);
+    const path = `docs/${folder}/latest-updates.md`;
     return { path, content };
   }
 
@@ -361,6 +401,7 @@ Requirements:
 
     // Fallback: Simple blog template
     return `# ${game} Updates - ${new Date().toLocaleDateString()}\n\nFound ${codes.length} new codes and ${news.length} updates today. Check our guides for the latest!`;
+  }
 }
 
 module.exports = ContentGenerator;

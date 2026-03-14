@@ -42,7 +42,7 @@ class BaseScraper {
         return null;
       }
 
-      logger.info(`✓ Cache hit for ${this.gameName} - ${source}`);
+      logger.cacheHit(this.gameName, source);
       return data.content;
     } catch (error) {
       logger.warn(`Cache read error for ${source}: ${error.message}`);
@@ -63,36 +63,75 @@ class BaseScraper {
   }
 
   /**
-   * Fetch with retry logic and automatic backoff
+   * Browser-like headers to reduce 403 (bot-blocking) on some sites.
+   * Note: Cloudflare and heavy bot protection still block - Reddit's JSON API works best.
    */
-  async fetchWithRetry(url, options = {}, source = 'unknown') {
+  getBrowserHeaders(url) {
+    const parsed = new URL(url);
+    const origin = `${parsed.protocol}//${parsed.host}`;
+    return {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Referer': `${origin}/`,
+      'Sec-Fetch-Dest': 'document',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-Site': 'none',
+      'Sec-Fetch-User': '?1',
+      'Upgrade-Insecure-Requests': '1',
+      'DNT': '1',
+    };
+  }
+
+  /** Headers for JSON APIs (Reddit, etc) - fewer headers, JSON accept */
+  getJsonHeaders(url) {
+    return {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Accept': 'application/json, text/plain, */*',
+      'Accept-Language': 'en-US,en;q=0.9',
+    };
+  }
+
+  /**
+   * Fetch with retry logic and automatic backoff
+   * @param {boolean} useJsonHeaders - Use JSON headers (for Reddit API). Default: full browser headers
+   */
+  async fetchWithRetry(url, options = {}, source = 'unknown', useJsonHeaders = false) {
     let lastError;
+    const defaultHeaders = useJsonHeaders ? this.getJsonHeaders(url) : this.getBrowserHeaders(url);
+    const mergedHeaders = { ...defaultHeaders, ...(options.headers || {}) };
 
     for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
       try {
-        logger.debug(`Fetching ${source} (attempt ${attempt}/${this.maxRetries}): ${url}`);
+        logger.http(`Fetching ${source} (attempt ${attempt}/${this.maxRetries}): ${url}`, 'info');
 
         const response = await axios.get(url, {
           timeout: this.timeout,
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept': 'application/json; text/html; */*',
-            'Accept-Language': 'en-US,en;q=0.9',
-          },
+          headers: mergedHeaders,
+          maxRedirects: 5,
+          validateStatus: (status) => status < 400, // Don't throw on 3xx
           ...options,
         });
 
         if (response.status === 200) {
-          logger.info(`✓ Successfully fetched ${source}`);
+          logger.http(`✓ ${source} → ${(response.data && typeof response.data === 'string' ? response.data.length : JSON.stringify(response.data).length)} bytes`, 'success');
           return response.data;
         }
 
         throw new Error(`HTTP ${response.status}`);
       } catch (error) {
         lastError = error;
-        logger.warn(`Attempt ${attempt} failed for ${source}: ${error.message}`);
+        const is403 = error.response?.status === 403;
+        const is404 = error.response?.status === 404;
+        logger.warn(`Attempt ${attempt} failed for ${source}: ${error.message}${is403 ? ' (likely bot-blocked)' : ''}`);
 
-        // Exponential backoff
+        // Don't retry 403/404 - site is blocking us
+        if (is403 || is404) {
+          throw new Error(`Failed to fetch ${source}: ${error.message}${is403 ? ' (site blocks scrapers)' : ''}`);
+        }
+
+        // Exponential backoff for other errors
         if (attempt < this.maxRetries) {
           const delay = this.retryDelay * Math.pow(2, attempt - 1);
           logger.debug(`Waiting ${delay}ms before retry...`);

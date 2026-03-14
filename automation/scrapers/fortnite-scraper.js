@@ -8,7 +8,10 @@
  * 4. FortniteLoungeDB - Database of current codes
  */
 
+const cheerio = require('cheerio');
 const BaseScraper = require('./base-scraper');
+const { scrapeFandomWiki } = require('./fandom-api');
+const { fetchWithPlaywright } = require('./playwright-fetcher');
 const logger = require('../logger');
 
 class FortniteScraper extends BaseScraper {
@@ -80,7 +83,8 @@ class FortniteScraper extends BaseScraper {
       const response = await this.fetchWithRetry(
         'https://www.reddit.com/r/FortniteBR/search.json?q=vbucks|code|premium&restrict_sr=1&sort=new&limit=100',
         {},
-        'Reddit'
+        'Reddit',
+        true
       );
 
       const codes = [];
@@ -128,7 +132,7 @@ class FortniteScraper extends BaseScraper {
   }
 
   /**
-   * Source 2: Scrape from Epic Games official channels
+   * Source 2: Scrape from Epic Games official (Playwright bypasses bot protection)
    */
   async scrapeEpicGames() {
     try {
@@ -136,22 +140,36 @@ class FortniteScraper extends BaseScraper {
       const cacheData = this.getFromCache('epic');
       if (cacheData) return cacheData;
 
-      // Try multiple official sources
-      const response = await this.fetchWithRetry(
-        'https://www.epicgames.com/fortnite/en-US/patch-notes',
-        {},
-        'Epic Games'
-      );
-
+      const url = 'https://www.epicgames.com/fortnite/en-US/patch-notes';
+      const html = await fetchWithPlaywright(url, { timeout: 20000 });
       const result = { codes: [], news: [] };
-      // Add official news items when available
-      result.news.push({
-        title: 'Official Fortnite Updates',
-        summary: 'Check Epic Games for latest patch notes and V-Bucks promotions',
-        date: new Date(),
-        source: 'Epic Games Official',
-        official: true,
-      });
+
+      if (html) {
+        const $ = cheerio.load(html);
+        $('article, [data-testid="patch-note"], .patch-note, .article-item').slice(0, 8).each((i, el) => {
+          const title = $(el).find('h2, h3, .title, [class*="title"]').first().text().trim();
+          const summary = $(el).find('p, .summary, [class*="description"]').first().text().trim().substring(0, 200);
+          if (title) {
+            result.news.push({
+              title,
+              summary: summary || 'Official Fortnite update',
+              date: new Date(),
+              source: 'Epic Games Official',
+              official: true,
+            });
+          }
+        });
+      }
+
+      if (result.news.length === 0) {
+        result.news.push({
+          title: 'Official Fortnite Updates',
+          summary: 'Check Epic Games for latest patch notes and V-Bucks promotions',
+          date: new Date(),
+          source: 'Epic Games Official',
+          official: true,
+        });
+      }
 
       this.saveToCache('epic', result);
       return result;
@@ -170,25 +188,16 @@ class FortniteScraper extends BaseScraper {
       const cacheData = this.getFromCache('wiki');
       if (cacheData) return cacheData;
 
-      const response = await this.fetchWithRetry(
-        'https://fortnite.fandom.com/wiki/V-Bucks',
-        {},
-        'Fortnite Wiki'
-      );
-
-      const codes = [];
-      const news = [];
-
-      // Wiki info about V-Bucks earning
-      news.push({
-        title: 'Wiki: V-Bucks Farming Guide',
-        summary: 'Complete strategies for earning V-Bucks through Save the World and challenges',
-        date: new Date(),
-        source: 'Fortnite Wiki',
-        type: 'earning_method',
-      });
-
-      const result = { codes, news };
+      const result = await scrapeFandomWiki('fortnite', 'V-Bucks', 'Fortnite Wiki');
+      if (result.news.length === 0) {
+        result.news.push({
+          title: 'Wiki: V-Bucks Farming Guide',
+          summary: 'Complete strategies for earning V-Bucks through Save the World and challenges',
+          date: new Date(),
+          source: 'Fortnite Wiki',
+          type: 'earning_method',
+        });
+      }
       this.saveToCache('wiki', result);
       return result;
     } catch (error) {
@@ -198,31 +207,12 @@ class FortniteScraper extends BaseScraper {
   }
 
   /**
-   * Source 4: Scrape from FortniteLounge (code database)
+   * Source 4: FortniteLounge - domain deprecated (ENOTFOUND). Skip to save retry time.
+   * Reddit remains primary source for Fortnite codes.
    */
   async scrapeFortniteLounge() {
-    try {
-      logger.info(`📍 Scraping FortniteLounge for ${this.gameName}...`);
-      const cacheData = this.getFromCache('lounge');
-      if (cacheData) return cacheData;
-
-      const response = await this.fetchWithRetry(
-        'https://www.fortnitelounge.com/en-US/codes',
-        {},
-        'FortniteLounge'
-      );
-
-      const codes = [];
-
-      // Parse any available codes from lounge database
-      // Note: This may require specific parsing based on page structure
-      const result = { codes, news: [] };
-      this.saveToCache('lounge', result);
-      return result;
-    } catch (error) {
-      logger.warn(`FortniteLounge scraping error: ${error.message}`);
-      return { codes: [], news: [] };
-    }
+    logger.info(`📍 Skipping FortniteLounge (domain deprecated)...`);
+    return { codes: [], news: [] };
   }
 
   /**
@@ -309,7 +299,8 @@ class FortniteScraper extends BaseScraper {
       const response = await this.fetchWithRetry(
         'https://www.reddit.com/r/FortniteBR/search.json?q=how|where|when&restrict_sr=1&sort=top&time=week&limit=50',
         {},
-        'Reddit Questions'
+        'Reddit Questions',
+        true
       );
 
       const questions = [];

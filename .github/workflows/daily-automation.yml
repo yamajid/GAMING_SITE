@@ -1,31 +1,29 @@
 # Daily Automation - FREE scheduled scraping & deployment
-# Runs at 2:00 AM UTC every day
-# Scrapes → Generates content → Pushes to GitHub → Netlify auto-deploys
+# Scrapes → Generates → Writes files → Git commit & push → Netlify auto-deploys
 #
-# Required: Add these secrets in GitHub repo Settings → Secrets and variables → Actions:
-#   - REDDIT_CLIENT_ID (optional but recommended for scraping)
-#   - REDDIT_CLIENT_SECRET (optional)
-#   - CLAUDE_API_KEY (optional - better content quality with AI)
+# No PR/merge: Direct push to main. Netlify deploys automatically on push.
 #
-# GITHUB_TOKEN is automatic - no setup needed for pushing
+# Optional secrets: REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, CLAUDE_API_KEY
 
 name: Daily Content Automation
 
 on:
   schedule:
-    # 2:00 AM UTC every day (adjust to your timezone)
     - cron: '0 2 * * *'
   workflow_dispatch:
-    # Allow manual trigger from Actions tab
 
 jobs:
   scrape-and-publish:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write  # Required for git push
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,21 +32,29 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
-      - name: Run daily automation (scrape → generate → publish)
+      - name: Install Playwright browsers (for Epic Games scraping)
+        run: npx playwright install chromium --with-deps
+
+      - name: Run daily automation (scrape → generate → write files)
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_OWNER: yamajid
-          GITHUB_REPO: GAMING_SITE
+          GITHUB_ACTIONS: 'true'
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
         run: node automation/scheduler.js --once
-        continue-on-error: true  # Don't fail the job if scraping has issues
 
-      - name: Summary
-        if: always()
+      - name: Commit and push (triggers Netlify deploy)
+        if: success()
         run: |
-          echo "✅ Daily automation completed!"
-          echo "Netlify will auto-deploy when changes are pushed to main."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "chore: [AUTO] Daily content update - $(date -u +%Y-%m-%d)"
+            git push origin HEAD:${{ github.ref_name }}
+            echo "✅ Pushed to ${{ github.ref_name }} - Netlify will auto-deploy"
+          else
+            echo "ℹ️ No changes to commit"
+          fi

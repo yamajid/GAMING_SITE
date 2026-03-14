@@ -6,7 +6,7 @@
  * This script orchestrates daily tasks:
  * - Scrapes fresh codes and news for all 4 games
  * - Generates updated guides using Claude API
- * - Auto-publishes content to GitHub + Vercel
+ * - Writes files to disk → GitHub Actions commits & pushes → Netlify auto-deploys
  * 
  * Runs at: 2:00 AM UTC daily (can be customized)
  */
@@ -36,10 +36,11 @@ class AutomationScheduler {
     this.stats = {
       startTime: null,
       endTime: null,
-      success: 0,
-      failed: 0,
+      scrapersSuccess: 0,
+      scrapersFailed: 0,
       filesGenerated: 0,
-      filesPublished: 0,
+      filesWritten: 0,
+      filesFailed: 0,
     };
   }
 
@@ -59,13 +60,19 @@ class AutomationScheduler {
       logger.info('✍️ Step 2: Generating fresh content...');
       const generatedFiles = await this.generateContent(scrapedData);
 
-      // Step 3: Publish to repository
-      logger.info('🚀 Step 3: Publishing to GitHub...');
-      const publishedFiles = await this.publishContent(generatedFiles);
+      // Step 3: Write files to disk (GitHub Actions will git commit & push → Netlify deploys)
+      let publishResult = { filesWritten: 0, filesFailed: 0 };
+      if (config.get('DRY_RUN') === 'true') {
+        logger.info('🔒 DRY_RUN: Skipping file write');
+      } else {
+        logger.info('🚀 Step 3: Writing generated files to disk...');
+        publishResult = await this.publishContent(generatedFiles);
+      }
 
       this.stats.endTime = new Date();
       this.stats.filesGenerated = generatedFiles.length;
-      this.stats.filesPublished = publishedFiles.length;
+      this.stats.filesWritten = publishResult.filesWritten ?? 0;
+      this.stats.filesFailed = publishResult.filesFailed ?? 0;
 
       logger.success(`✅ Daily automation completed successfully!`);
       this.logStats();
@@ -74,7 +81,7 @@ class AutomationScheduler {
       await this.notifySuccess();
     } catch (error) {
       logger.error(`❌ Automation failed: ${error.message}`);
-      this.stats.failed++;
+      this.stats.scrapersFailed++;
       
       // Send failure notification
       await this.notifyFailure(error);
@@ -94,13 +101,15 @@ class AutomationScheduler {
         scraper.scrape()
           .then(data => {
             allData[gameName] = data;
-            logger.info(`✓ ${gameName}: Found ${data.codes?.length || 0} codes, ${data.news?.length || 0} news items`);
-            this.stats.success++;
+            const codes = data.codes?.length ?? 0;
+            const news = data.news?.length ?? 0;
+            logger.info(`✓ ${gameName}: Found ${codes} codes, ${news} news items`);
+            this.stats.scrapersSuccess++;
           })
           .catch(error => {
             logger.warn(`✗ ${gameName}: ${error.message}`);
             allData[gameName] = { codes: [], news: [], error: error.message };
-            this.stats.failed++;
+            this.stats.scrapersFailed++;
           })
       );
     }
@@ -110,44 +119,46 @@ class AutomationScheduler {
   }
 
   /**
-   * Generate fresh content for all games
+   * Generate fresh content for all games - ALWAYS 3 files per game (12 total)
+   * Uses templates when data is empty; ensures maximum output
    */
   async generateContent(scrapedData) {
     const generatedFiles = [];
 
     for (const [gameName, data] of Object.entries(scrapedData)) {
       try {
-        // Generate updated codes file
-        if (data.codes && data.codes.length > 0) {
-          const codesFile = await this.generator.generateCodesFile(
-            gameName,
-            data.codes,
-            data.lastUpdated || new Date()
-          );
-          generatedFiles.push(codesFile);
-          logger.info(`📄 Generated: ${codesFile.path}`);
-        }
+        logger.generator(`Generating content for ${gameName}...`);
 
-        // Generate updated FAQ file with fresh questions
-        if (data.news && data.news.length > 0) {
-          const faqFile = await this.generator.generateFAQUpdate(
-            gameName,
-            data.news,
-            data.questionsAsked
-          );
-          generatedFiles.push(faqFile);
-          logger.info(`📄 Generated: ${faqFile.path}`);
-        }
+        // 1. Codes file - always generate (template handles empty)
+        const codesFile = await this.generator.generateCodesFile(
+          gameName,
+          data.codes || [],
+          data.lastUpdated || new Date()
+        );
+        generatedFiles.push(codesFile);
+        logger.generator(`  ✓ ${codesFile.path} (${(data.codes?.length ?? 0)} codes)`);
 
-        // Generate updated earning guide if new methods discovered
-        if (data.newMethods && data.newMethods.length > 0) {
-          const guideFile = await this.generator.generateEarningGuide(
-            gameName,
-            data.newMethods
-          );
-          generatedFiles.push(guideFile);
-          logger.info(`📄 Generated: ${guideFile.path}`);
-        }
+        // 2. FAQ file - always generate (template handles empty)
+        const faqFile = await this.generator.generateFAQUpdate(
+          gameName,
+          data.news || [],
+          data.questionsAsked || []
+        );
+        generatedFiles.push(faqFile);
+        logger.generator(`  ✓ ${faqFile.path} (${(data.news?.length ?? 0)} news, ${(data.questionsAsked?.length ?? 0)} Q&A)`);
+
+        // 3. Earning guide - always generate (template handles empty)
+        const guideFile = await this.generator.generateEarningGuide(
+          gameName,
+          data.newMethods || []
+        );
+        generatedFiles.push(guideFile);
+        logger.generator(`  ✓ ${guideFile.path} (${(data.newMethods?.length ?? 0)} methods)`);
+
+        // 4. Latest-updates roundup - always generate (16 files total)
+        const updatesFile = await this.generator.generateLatestUpdates(gameName, data);
+        generatedFiles.push(updatesFile);
+        logger.generator(`  ✓ ${updatesFile.path} (roundup)`);
       } catch (error) {
         logger.warn(`⚠️ Failed to generate content for ${gameName}: ${error.message}`);
       }
@@ -157,34 +168,38 @@ class AutomationScheduler {
   }
 
   /**
-   * Publish generated files to GitHub and Vercel
+   * Write generated files to disk. In CI, workflow handles git commit & push. Netlify auto-deploys.
    */
   async publishContent(generatedFiles) {
     try {
-      const published = await this.publisher.publishFiles(generatedFiles);
-      logger.info(`🚀 Published ${published.length} files to GitHub`);
-      
-      // Vercel auto-triggers on git push, so deployment happens automatically
-      logger.info(`⏳ Vercel deployment will auto-trigger from GitHub push`);
-      
-      return published;
+      const result = await this.publisher.publishFiles(generatedFiles);
+      logger.info(`📝 Wrote ${result.filesWritten} files to disk`);
+      if (result.filesFailed > 0) {
+        logger.warn(`⚠️  ${result.filesFailed} file(s) failed to write`);
+      }
+      if (process.env.GITHUB_ACTIONS === 'true') {
+        logger.info(`⏳ GitHub Actions will commit & push → Netlify auto-deploys`);
+      }
+      return result;
     } catch (error) {
-      logger.error(`Failed to publish: ${error.message}`);
+      logger.error(`Failed to write files: ${error.message}`);
       throw error;
     }
   }
 
   /**
-   * Log automation statistics
+   * Log automation statistics - rich box output
    */
   logStats() {
     const duration = Math.round((this.stats.endTime - this.stats.startTime) / 1000);
-    logger.info(`\n📊 Automation Statistics:`);
-    logger.info(`   Duration: ${duration}s`);
-    logger.info(`   Successful scrapers: ${this.stats.success}/${Object.keys(this.scrapers).length}`);
-    logger.info(`   Failed scrapers: ${this.stats.failed}`);
-    logger.info(`   Files generated: ${this.stats.filesGenerated}`);
-    logger.info(`   Files published: ${this.stats.filesPublished}\n`);
+    const totalScrapers = Object.keys(this.scrapers).length;
+    logger.stats('Automation Statistics', {
+      Duration: `${duration}s`,
+      Scrapers: `${this.stats.scrapersSuccess}/${totalScrapers} succeeded, ${this.stats.scrapersFailed} failed`,
+      'Files generated': this.stats.filesGenerated,
+      'Files written': this.stats.filesWritten,
+      'Files failed': this.stats.filesFailed,
+    });
   }
 
   /**
@@ -194,7 +209,7 @@ class AutomationScheduler {
     // Send webhook notification (Slack, Discord, email, etc.)
     if (process.env.WEBHOOK_URL) {
       try {
-        const message = `✅ Gaming Coins Hub automation succeeded!\n${this.stats.filesGenerated} files generated & published`;
+        const message = `✅ Gaming Coins Hub automation succeeded!\n${this.stats.filesGenerated} files generated, ${this.stats.filesWritten} written`;
         await fetch(process.env.WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

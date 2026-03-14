@@ -17,18 +17,20 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.0",
-    "@docusaurus/core": "3.9.2",
-    "@docusaurus/plugin-google-analytics": "3.9.2",
-    "@docusaurus/plugin-google-tag-manager": "3.9.2",
-    "@docusaurus/plugin-sitemap": "3.9.2",
-    "@docusaurus/preset-classic": "3.9.2",
+    "@docusaurus/core": "^3.5.2",
+    "@docusaurus/plugin-google-analytics": "^3.5.2",
+    "@docusaurus/plugin-google-tag-manager": "^3.5.2",
+    "@docusaurus/plugin-sitemap": "^3.5.2",
+    "@docusaurus/preset-classic": "^3.5.2",
     "@mdx-js/react": "^3.0.0",
     "@octokit/rest": "^20.1.1",
     "axios": "^1.13.6",
     "cheerio": "^1.2.0",
     "clsx": "^2.0.0",
+    "consola": "^3.4.2",
     "dotenv": "^16.0.3",
     "node-cron": "^3.0.3",
+    "playwright": "^1.58.2",
     "pm2": "^5.4.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
@@ -58,4 +60,3 @@
     "node": ">=20.0"
   }
 }
-

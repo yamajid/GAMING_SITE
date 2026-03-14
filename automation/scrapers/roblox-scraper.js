@@ -11,6 +11,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const BaseScraper = require('./base-scraper');
+const { fetchFandomPage } = require('./fandom-api');
 const logger = require('../logger');
 
 class RobloxScraper extends BaseScraper {
@@ -20,7 +21,7 @@ class RobloxScraper extends BaseScraper {
       reddit: 'https://www.reddit.com/r/roblox/',
       blog: 'https://blog.roblox.com/',
       wiki: 'https://roblox.fandom.com/wiki/Robux',
-      updates: 'https://updates.roblox.com/',
+      updates: 'https://corp.roblox.com/newsroom/',  // was updates.roblox.com (domain deprecated)
     };
   }
 
@@ -89,7 +90,8 @@ class RobloxScraper extends BaseScraper {
       const response = await this.fetchWithRetry(
         'https://www.reddit.com/r/roblox/search.json?q=code|promo&restrict_sr=1&sort=new&limit=100',
         {},
-        'Reddit'
+        'Reddit',
+        true  // JSON API
       );
 
       const codes = [];
@@ -202,13 +204,10 @@ class RobloxScraper extends BaseScraper {
       const cacheData = this.getFromCache('wiki');
       if (cacheData) return cacheData;
 
-      const response = await this.fetchWithRetry(
-        'https://roblox.fandom.com/wiki/Robux',
-        {},
-        'Roblox Wiki'
-      );
+      const html = await fetchFandomPage('roblox', 'Robux');
+      if (!html) return { codes: [], news: [] };
 
-      const $ = cheerio.load(response);
+      const $ = cheerio.load(html);
       const codes = [];
       const news = [];
 
@@ -262,7 +261,7 @@ class RobloxScraper extends BaseScraper {
       if (cacheData) return cacheData;
 
       const response = await this.fetchWithRetry(
-        'https://updates.roblox.com/',
+        'https://corp.roblox.com/newsroom/',
         {},
         'Roblox Updates'
       );
@@ -360,7 +359,8 @@ class RobloxScraper extends BaseScraper {
       const response = await this.fetchWithRetry(
         'https://www.reddit.com/r/roblox/search.json?q=how|where|what|why&restrict_sr=1&sort=top&time=week&limit=50',
         {},
-        'Reddit Questions'
+        'Reddit Questions',
+        true  // JSON API
       );
 
       const questions = [];
@@ -386,6 +386,7 @@ class RobloxScraper extends BaseScraper {
       logger.warn(`Questions scraping error: ${error.message}`);
       return [];
     }
+  }
 }
 
 module.exports = RobloxScraper;

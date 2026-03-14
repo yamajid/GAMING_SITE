@@ -9,6 +9,7 @@
  */
 
 const BaseScraper = require('./base-scraper');
+const { scrapeFandomWiki } = require('./fandom-api');
 const logger = require('../logger');
 
 class ClashOfClansScraper extends BaseScraper {
@@ -66,7 +67,8 @@ class ClashOfClansScraper extends BaseScraper {
       const response = await this.fetchWithRetry(
         'https://www.reddit.com/r/ClashOfClans/search.json?q=gem|strategy|earn&restrict_sr=1&sort=new&limit=100',
         {},
-        'Reddit'
+        'Reddit',
+        true
       );
 
       const codes = [];
@@ -147,23 +149,16 @@ class ClashOfClansScraper extends BaseScraper {
       const cacheData = this.getFromCache('wiki');
       if (cacheData) return cacheData;
 
-      const response = await this.fetchWithRetry(
-        'https://clashofclans.fandom.com/wiki/Gems',
-        {},
-        'Clash Wiki'
-      );
-
-      const news = [];
-
-      news.push({
-        title: 'Wiki: Complete Gem Farming Guide',
-        summary: 'All methods to earn gems including Gem Mine and achievements',
-        date: new Date(),
-        source: 'Clash of Clans Wiki',
-        type: 'earning_method',
-      });
-
-      const result = { codes: [], news };
+      const result = await scrapeFandomWiki('clashofclans', 'Gems', 'Clash of Clans Wiki');
+      if (result.news.length === 0) {
+        result.news.push({
+          title: 'Wiki: Complete Gem Farming Guide',
+          summary: 'All methods to earn gems including Gem Mine and achievements',
+          date: new Date(),
+          source: 'Clash of Clans Wiki',
+          type: 'earning_method',
+        });
+      }
       this.saveToCache('wiki', result);
       return result;
     } catch (error) {
@@ -270,7 +265,8 @@ class ClashOfClansScraper extends BaseScraper {
       const response = await this.fetchWithRetry(
         'https://www.reddit.com/r/ClashOfClans/search.json?q=how|tips|strategy&restrict_sr=1&sort=top&time=week&limit=50',
         {},
-        'Reddit Questions'
+        'Reddit Questions',
+        true
       );
 
       const questions = [];
@@ -294,13 +290,6 @@ class ClashOfClansScraper extends BaseScraper {
         .slice(0, 15);
     } catch (error) {
       logger.warn(`Questions scraping error: ${error.message}`);
-      return [];
-    }
-  }
-}
-
-module.exports = ClashOfClansScraper;
-      logger.warn(`Clash of Clans questions scraping failed: ${error.message}`);
       return [];
     }
   }

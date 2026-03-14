@@ -11,10 +11,8 @@ class Config {
   }
 
   loadConfig() {
-    // Critical environment variables
-    const critical = [
-      'GITHUB_TOKEN',
-    ];
+    // No critical env vars - script writes files; workflow handles git push
+    const critical = [];
 
     // Required for enhanced content generation
     const recommended = [
@@ -26,9 +24,7 @@ class Config {
       AUTOMATION_SCHEDULE: '0 2 * * *', // 2:00 AM UTC daily
       REDDIT_CLIENT_ID: null,
       REDDIT_CLIENT_SECRET: null,
-      VERCEL_TOKEN: null,
-      VERCEL_PROJECT_ID: null,
-      VERCEL_WEBHOOK: null,
+      // Netlify auto-deploys on push - no API needed
       GITHUB_OWNER: 'yamajid',
       GITHUB_REPO: 'GAMING_SITE',
       SLACK_WEBHOOK: null,

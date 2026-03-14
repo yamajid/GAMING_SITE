@@ -9,6 +9,7 @@
  */
 
 const BaseScraper = require('./base-scraper');
+const { scrapeFandomWiki } = require('./fandom-api');
 const logger = require('../logger');
 
 class MobileLegendsScraper extends BaseScraper {
@@ -67,7 +68,8 @@ class MobileLegendsScraper extends BaseScraper {
       const response = await this.fetchWithRetry(
         'https://www.reddit.com/r/MobileLegendsGame/search.json?q=code|diamond|free&restrict_sr=1&sort=new&limit=100',
         {},
-        'Reddit'
+        'Reddit',
+        true
       );
 
       const codes = [];
@@ -127,24 +129,16 @@ class MobileLegendsScraper extends BaseScraper {
       const cacheData = this.getFromCache('official');
       if (cacheData) return cacheData;
 
-      const response = await this.fetchWithRetry(
-        'https://mobilelegends.fandom.com/wiki/Events',
-        {},
-        'Mobile Legends Events'
-      );
-
-      const codes = [];
-      const news = [];
-
-      news.push({
-        title: 'Latest ML Events & Promos',
-        summary: 'Official Mobile Legends events, new heroes, and free diamond campaigns',
-        date: new Date(),
-        source: 'Mobile Legends Official',
-        official: true,
-      });
-
-      const result = { codes, news };
+      const result = await scrapeFandomWiki('mobilelegends', 'Events', 'Mobile Legends Events');
+      if (result.news.length === 0) {
+        result.news.push({
+          title: 'Latest ML Events & Promos',
+          summary: 'Official Mobile Legends events, new heroes, and free diamond campaigns',
+          date: new Date(),
+          source: 'Mobile Legends Official',
+          official: true,
+        });
+      }
       this.saveToCache('official', result);
       return result;
     } catch (error) {
@@ -159,23 +153,16 @@ class MobileLegendsScraper extends BaseScraper {
       const cacheData = this.getFromCache('wiki');
       if (cacheData) return cacheData;
 
-      const response = await this.fetchWithRetry(
-        'https://mobilelegends.fandom.com/wiki/Free_Diamonds',
-        {},
-        'Mobile Legends Wiki'
-      );
-
-      const news = [];
-
-      news.push({
-        title: 'Wiki: Free Diamonds Guide',
-        summary: 'Complete guide to earning free diamonds through campaigns and events',
-        date: new Date(),
-        source: 'Mobile Legends Wiki',
-        type: 'earning_method',
-      });
-
-      const result = { codes: [], news };
+      const result = await scrapeFandomWiki('mobilelegends', 'Free_Diamonds', 'Mobile Legends Wiki');
+      if (result.news.length === 0) {
+        result.news.push({
+          title: 'Wiki: Free Diamonds Guide',
+          summary: 'Complete guide to earning free diamonds through campaigns and events',
+          date: new Date(),
+          source: 'Mobile Legends Wiki',
+          type: 'earning_method',
+        });
+      }
       this.saveToCache('wiki', result);
       return result;
     } catch (error) {
@@ -272,7 +259,8 @@ class MobileLegendsScraper extends BaseScraper {
       const response = await this.fetchWithRetry(
         'https://www.reddit.com/r/MobileLegendsGame/search.json?q=how|help|where&restrict_sr=1&sort=top&time=week&limit=50',
         {},
-        'Reddit Questions'
+        'Reddit Questions',
+        true
       );
 
       const questions = [];

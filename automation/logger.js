@@ -1,81 +1,142 @@
 /**
- * Logger - Colored console output for automation logs
+ * Enhanced Logger - Rich console output with Consola (2026)
+ * Tags: PLAYWRIGHT | FANDOM | REDDIT | CACHE | SCRAPER | GENERATOR | PUBLISHER | CONFIG
+ * Uses consola for fancy boxes, colors, and structured logging
  */
 
-const colors = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  
-  // Foreground colors
-  black: '\x1b[30m',
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  magenta: '\x1b[35m',
-  cyan: '\x1b[36m',
-  white: '\x1b[37m',
-  
-  // Bright foreground colors
-  brightRed: '\x1b[91m',
-  brightGreen: '\x1b[92m',
-  brightYellow: '\x1b[93m',
-  brightBlue: '\x1b[94m',
+const { consola } = require('consola');
+
+// Tagged loggers for different automation components
+const loggers = {
+  main: consola.withTag('AUTO'),
+  playwright: consola.withTag('PLAYWRIGHT'),
+  fandom: consola.withTag('FANDOM'),
+  reddit: consola.withTag('REDDIT'),
+  cache: consola.withTag('CACHE'),
+  scraper: consola.withTag('SCRAPER'),
+  generator: consola.withTag('GENERATOR'),
+  publisher: consola.withTag('PUBLISHER'),
+  config: consola.withTag('CONFIG'),
+  http: consola.withTag('HTTP'),
 };
 
 class Logger {
   constructor() {
     this.prefix = '[GAMING-COINS]';
     this.logs = [];
+    this._useConsola = true;
   }
 
-  log(message, color = colors.white) {
-    const timestamp = new Date().toISOString();
-    const formatted = `${colors.cyan}${timestamp}${colors.reset} ${color}${this.prefix}${colors.reset} ${message}`;
-    console.log(formatted);
-    this.logs.push({ timestamp, message, level: 'INFO' });
+  _addLog(level, message) {
+    this.logs.push({ timestamp: new Date().toISOString(), message: String(message), level });
+  }
+
+  log(message, color = 'white') {
+    if (this._useConsola) {
+      consola.log(message);
+    } else {
+      console.log(`${this.prefix} ${message}`);
+    }
+    this._addLog('INFO', message);
   }
 
   info(message) {
-    this.log(message, colors.cyan);
+    loggers.main.info(message);
+    this._addLog('INFO', message);
   }
 
   success(message) {
-    this.log(message, colors.brightGreen);
+    loggers.main.success(message);
+    this._addLog('SUCCESS', message);
   }
 
   warn(message) {
-    this.log(`${colors.yellow}⚠️  ${message}${colors.reset}`, colors.yellow);
-    this.logs.push({ timestamp: new Date().toISOString(), message, level: 'WARN' });
+    loggers.main.warn(message);
+    this._addLog('WARN', message);
   }
 
   error(message) {
-    this.log(`${colors.brightRed}❌ ${message}${colors.reset}`, colors.brightRed);
-    this.logs.push({ timestamp: new Date().toISOString(), message, level: 'ERROR' });
+    loggers.main.error(message);
+    this._addLog('ERROR', message);
   }
 
   debug(message) {
     if (process.env.DEBUG === 'true') {
-      this.log(`${colors.magenta}🐛 ${message}${colors.reset}`, colors.magenta);
+      loggers.main.debug(message);
+      this._addLog('DEBUG', message);
     }
   }
 
   header(text) {
-    const line = '='.repeat(60);
-    console.log(`\n${colors.brightBlue}${line}\n${text}\n${line}${colors.reset}\n`);
-    this.logs.push({ timestamp: new Date().toISOString(), message: text, level: 'HEADER' });
+    const line = '═'.repeat(60);
+    consola.log('\n' + line + '\n' + text + '\n' + line + '\n');
+    this._addLog('HEADER', text);
+  }
+
+  box(title, content) {
+    const border = '─'.repeat(50);
+    consola.log(`\n┌${border}┐\n│ ${title || ''}\n│ ${String(content).replace(/\n/g, '\n│ ')}\n└${border}┘\n`);
+    this._addLog('BOX', `${title}: ${content}`);
   }
 
   table(data) {
-    console.table(data);
-    this.logs.push({ timestamp: new Date().toISOString(), message: JSON.stringify(data), level: 'TABLE' });
+    consola.table(data);
+    this._addLog('TABLE', JSON.stringify(data));
   }
 
-  stats(label, stats) {
-    const formatted = Object.entries(stats)
-      .map(([key, value]) => `${colors.cyan}${key}${colors.reset}: ${colors.brightYellow}${value}${colors.reset}`)
-      .join(' | ');
-    this.log(`📊 ${label} | ${formatted}`);
+  stats(label, statsObj) {
+    const entries = Object.entries(statsObj)
+      .map(([k, v]) => `   ${k}: ${v}`)
+      .join('\n');
+    const border = '─'.repeat(40);
+    consola.success(`\n📊 ${label}\n┌${border}┐\n${entries}\n└${border}┘\n`);
+    this._addLog('STATS', `${label} ${JSON.stringify(statsObj)}`);
+  }
+
+  // ─── Tagged loggers for components ─────────────────────────────────────
+
+  playwright(message, level = 'info') {
+    loggers.playwright[level](message);
+    this._addLog(`PLAYWRIGHT:${level.toUpperCase()}`, message);
+  }
+
+  fandom(message, level = 'info') {
+    loggers.fandom[level](message);
+    this._addLog(`FANDOM:${level.toUpperCase()}`, message);
+  }
+
+  reddit(message, level = 'info') {
+    loggers.reddit[level](message);
+    this._addLog(`REDDIT:${level.toUpperCase()}`, message);
+  }
+
+  cacheHit(game, source) {
+    loggers.cache.info(`✓ ${game} ← ${source}`);
+    this._addLog('CACHE', `hit ${game}/${source}`);
+  }
+
+  cacheMiss(game, source) {
+    loggers.cache.debug(`✗ ${game} → fetching ${source}`);
+  }
+
+  scraper(game, message, level = 'info') {
+    loggers.scraper[level](`[${game}] ${message}`);
+    this._addLog(`SCRAPER:${game}`, message);
+  }
+
+  generator(message, level = 'info') {
+    loggers.generator[level](message);
+    this._addLog(`GENERATOR:${level.toUpperCase()}`, message);
+  }
+
+  publisher(message, level = 'info') {
+    loggers.publisher[level](message);
+    this._addLog(`PUBLISHER:${level.toUpperCase()}`, message);
+  }
+
+  http(message, level = 'info') {
+    loggers.http[level](message);
+    this._addLog(`HTTP:${level.toUpperCase()}`, message);
   }
 
   getLogs() {
