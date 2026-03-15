@@ -124,6 +124,10 @@ Requirements:
       fortnite: 'fortnite',
       mobileLegends: 'mobile-legends',
       clashOfClans: 'clash-of-clans',
+      genshinImpact: 'genshin-impact',
+      pubgMobile: 'pubg-mobile',
+      minecraft: 'minecraft',
+      eaFc25: 'fifa-fc25',
     };
     return map[gameName] || gameName;
   }

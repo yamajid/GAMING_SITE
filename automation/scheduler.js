@@ -2,13 +2,13 @@
 
 /**
  * Gaming Coins Hub - Daily Automation Scheduler
- * 
+ *
  * This script orchestrates daily tasks:
- * - Scrapes fresh codes and news for all 4 games
- * - Generates updated guides using Claude API
+ * - Scrapes fresh codes and news for all 8 games
+ * - Generates updated guides using template-based generation
  * - Writes files to disk → GitHub Actions commits & pushes → Netlify auto-deploys
- * 
- * Runs at: 2:00 AM UTC daily (can be customized)
+ *
+ * Runs at: 2:00 AM UTC and 2:00 PM UTC daily (customizable)
  */
 
 const cron = require('node-cron');
@@ -20,6 +20,10 @@ const RobloxScraper = require('./scrapers/roblox-scraper');
 const FortniteScraper = require('./scrapers/fortnite-scraper');
 const MobileLegendsScraper = require('./scrapers/mobile-legends-scraper');
 const ClashOfClansScraper = require('./scrapers/clash-of-clans-scraper');
+const GenshinImpactScraper = require('./scrapers/genshin-impact-scraper');
+const PUBGMobileScraper = require('./scrapers/pubg-mobile-scraper');
+const MinecraftScraper = require('./scrapers/minecraft-scraper');
+const EAFc25Scraper = require('./scrapers/ea-fc25-scraper');
 const ContentGenerator = require('./generator');
 const Publisher = require('./publisher');
 
@@ -30,6 +34,10 @@ class AutomationScheduler {
       fortnite: new FortniteScraper(),
       mobileLegends: new MobileLegendsScraper(),
       clashOfClans: new ClashOfClansScraper(),
+      genshinImpact: new GenshinImpactScraper(),
+      pubgMobile: new PUBGMobileScraper(),
+      minecraft: new MinecraftScraper(),
+      eaFc25: new EAFc25Scraper(),
     };
     this.generator = new ContentGenerator();
     this.publisher = new Publisher();

@@ -274,7 +274,7 @@ jobs:
 ## Performance
 
 Typical execution times:
-- **Scraping:** 30-45 seconds (4 games in parallel)
+- **Scraping:** 30-45 seconds (8 games in parallel)
 - **Generation:** 30-60 seconds (depends on API)
 - **Publishing:** 20-30 seconds (GitHub + Vercel)
 - **Total:** 90-120 seconds per run
