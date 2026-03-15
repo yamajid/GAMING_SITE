@@ -9,6 +9,7 @@
  */
 
 const cheerio = require('cheerio');
+const { fetchTweets, extractCodesFromTweets, extractNewsFromTweets } = require('./twitter-fetcher');
 const BaseScraper = require('./base-scraper');
 const { scrapeFandomWiki } = require('./fandom-api');
 const logger = require('../logger');
@@ -30,7 +31,7 @@ class MinecraftScraper extends BaseScraper {
     };
 
     try {
-      const [redditData, officialData, wikiData, xboxData] = await Promise.allSettled([
+      const [redditData, officialData, wikiData, xboxData, twitterData] = await Promise.allSettled([
         this.scrapeReddit(),
         this.scrapeOfficial(),
         this.scrapeWiki(),
@@ -44,6 +45,9 @@ class MinecraftScraper extends BaseScraper {
 
       data.news.push(...redditData.news || []);
       data.news.push(...officialData.news || []);
+
+      data.codes.push(...twitterData.codes || []);
+      data.news.push(...twitterData.news || []);
       data.news.push(...wikiData.news || []);
       data.news.push(...xboxData.news || []);
 
@@ -52,7 +56,7 @@ class MinecraftScraper extends BaseScraper {
 
       data.newMethods = this.extractEarningMethods();
       data.questionsAsked = await this.scrapeCommonQuestions();
-      data.sourcesChecked = ['Reddit', 'Mojang Official', 'Wiki', 'Xbox News'];
+      data.sourcesChecked = ['Reddit', 'Mojang Official', 'Wiki', 'Xbox News', 'Twitter/X'];
 
       logger.success(`✅ ${this.gameName}: Found ${data.codes.length} codes, ${data.news.length} news items`);
       return data;
@@ -313,6 +317,29 @@ class MinecraftScraper extends BaseScraper {
     } catch (error) {
       logger.warn(`Questions scraping error: ${error.message}`);
       return [];
+    }
+  }
+
+  /**
+   * Source: Official Twitter/X account — fastest code delivery
+   * Uses syndication API + nitter fallback, no API key needed
+   */
+  async scrapeTwitter() {
+    try {
+      logger.info(`📍 Scraping Twitter/X for ${this.gameName}...`);
+      const cacheData = this.getFromCache('twitter');
+      if (cacheData) return cacheData;
+
+      const tweets = await fetchTweets('Minecraft', 30);
+      const codes = extractCodesFromTweets(tweets, /\\b[A-Z0-9]{8,16}\\b/g, 'Twitter @Minecraft');
+      const news  = extractNewsFromTweets(tweets, ['minecoin', 'free', 'code', 'marketplace', 'update', 'promotion'], 'Twitter @Minecraft');
+
+      const result = { codes, news };
+      this.saveToCache('twitter', result);
+      return result;
+    } catch (error) {
+      logger.warn(`Twitter scraping error for ${this.gameName}: ${error.message}`);
+      return { codes: [], news: [] };
     }
   }
 }

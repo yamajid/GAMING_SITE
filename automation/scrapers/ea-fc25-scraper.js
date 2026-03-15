@@ -9,6 +9,7 @@
  */
 
 const cheerio = require('cheerio');
+const { fetchTweets, extractCodesFromTweets, extractNewsFromTweets } = require('./twitter-fetcher');
 const BaseScraper = require('./base-scraper');
 const { scrapeFandomWiki } = require('./fandom-api');
 const logger = require('../logger');
@@ -30,7 +31,7 @@ class EAFc25Scraper extends BaseScraper {
     };
 
     try {
-      const [redditData, eaData, wikiData, futData] = await Promise.allSettled([
+      const [redditData, eaData, wikiData, futData, twitterData] = await Promise.allSettled([
         this.scrapeReddit(),
         this.scrapeEAOfficial(),
         this.scrapeWiki(),
@@ -45,6 +46,9 @@ class EAFc25Scraper extends BaseScraper {
       data.news.push(...redditData.news || []);
       data.news.push(...eaData.news || []);
       data.news.push(...wikiData.news || []);
+
+      data.codes.push(...twitterData.codes || []);
+      data.news.push(...twitterData.news || []);
       data.news.push(...futData.news || []);
 
       data.codes = this.deduplicateCodes(data.codes).slice(0, 20);
@@ -52,7 +56,7 @@ class EAFc25Scraper extends BaseScraper {
 
       data.newMethods = this.extractEarningMethods();
       data.questionsAsked = await this.scrapeCommonQuestions();
-      data.sourcesChecked = ['Reddit', 'EA Official', 'Wiki', 'FUT Community'];
+      data.sourcesChecked = ['Reddit', 'EA Official', 'Wiki', 'FUT Community', 'Twitter/X'];
 
       logger.success(`✅ ${this.gameName}: Found ${data.codes.length} codes, ${data.news.length} news items`);
       return data;
@@ -319,6 +323,29 @@ class EAFc25Scraper extends BaseScraper {
     } catch (error) {
       logger.warn(`Questions scraping error: ${error.message}`);
       return [];
+    }
+  }
+
+  /**
+   * Source: Official Twitter/X account — fastest code delivery
+   * Uses syndication API + nitter fallback, no API key needed
+   */
+  async scrapeTwitter() {
+    try {
+      logger.info(`📍 Scraping Twitter/X for ${this.gameName}...`);
+      const cacheData = this.getFromCache('twitter');
+      if (cacheData) return cacheData;
+
+      const tweets = await fetchTweets('EASFC', 30);
+      const codes = extractCodesFromTweets(tweets, /\\b[A-Z0-9]{8,16}\\b/g, 'Twitter @EASFC');
+      const news  = extractNewsFromTweets(tweets, ['code', 'free pack', 'totw', 'promo', 'event', 'sbc', 'fut'], 'Twitter @EASFC');
+
+      const result = { codes, news };
+      this.saveToCache('twitter', result);
+      return result;
+    } catch (error) {
+      logger.warn(`Twitter scraping error for ${this.gameName}: ${error.message}`);
+      return { codes: [], news: [] };
     }
   }
 }

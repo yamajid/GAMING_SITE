@@ -9,6 +9,7 @@
  */
 
 const cheerio = require('cheerio');
+const { fetchTweets, extractCodesFromTweets, extractNewsFromTweets } = require('./twitter-fetcher');
 const BaseScraper = require('./base-scraper');
 const { scrapeFandomWiki } = require('./fandom-api');
 const { fetchWithPlaywright } = require('./playwright-fetcher');
@@ -35,7 +36,7 @@ class FortniteScraper extends BaseScraper {
 
     try {
       // Parallel fetch from all sources
-      const [redditData, epicData, wikiData, fortniteLabData] = await Promise.allSettled([
+      const [redditData, epicData, wikiData, fortniteLabData, twitterData] = await Promise.allSettled([
         this.scrapeReddit(),
         this.scrapeEpicGames(),
         this.scrapeWiki(),
@@ -52,6 +53,9 @@ class FortniteScraper extends BaseScraper {
       data.news.push(...epicData.news || []);
       data.news.push(...wikiData.news || []);
 
+      data.codes.push(...twitterData.codes || []);
+      data.news.push(...twitterData.news || []);
+
       // Remove duplicates and sort
       data.codes = this.deduplicateCodes(data.codes).slice(0, 25);
       data.news = this.deduplicateNews(data.news).slice(0, 15);
@@ -62,7 +66,7 @@ class FortniteScraper extends BaseScraper {
       // Extract common questions
       data.questionsAsked = await this.scrapeCommonQuestions();
 
-      data.sourcesChecked = ['Reddit', 'Epic Games', 'Wiki', 'FortniteLounge'];
+      data.sourcesChecked = ['Reddit', 'Epic Games', 'Wiki', 'FortniteLounge', 'Twitter/X'];
 
       logger.success(`✅ ${this.gameName}: Found ${data.codes.length} codes, ${data.news.length} news items`);
       return data;
@@ -324,6 +328,29 @@ class FortniteScraper extends BaseScraper {
         .slice(0, 15);
     } catch (error) {
       logger.warn(`Questions scraping error: ${error.message}`);
+    }
+  }
+
+  /**
+   * Source: Official Twitter/X account — fastest code delivery
+   * Uses syndication API + nitter fallback, no API key needed
+   */
+  async scrapeTwitter() {
+    try {
+      logger.info(`📍 Scraping Twitter/X for ${this.gameName}...`);
+      const cacheData = this.getFromCache('twitter');
+      if (cacheData) return cacheData;
+
+      const tweets = await fetchTweets('FortniteGame', 30);
+      const codes = extractCodesFromTweets(tweets, /\\b[A-Z0-9]{8,15}\\b/g, 'Twitter @FortniteGame');
+      const news  = extractNewsFromTweets(tweets, ['vbucks', 'v-bucks', 'free', 'code', 'event', 'update', 'battle pass'], 'Twitter @FortniteGame');
+
+      const result = { codes, news };
+      this.saveToCache('twitter', result);
+      return result;
+    } catch (error) {
+      logger.warn(`Twitter scraping error for ${this.gameName}: ${error.message}`);
+      return { codes: [], news: [] };
     }
   }
 }

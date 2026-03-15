@@ -9,6 +9,7 @@
  */
 
 const BaseScraper = require('./base-scraper');
+const { fetchTweets, extractCodesFromTweets, extractNewsFromTweets } = require('./twitter-fetcher');
 const { scrapeFandomWiki } = require('./fandom-api');
 const logger = require('../logger');
 
@@ -29,7 +30,7 @@ class ClashOfClansScraper extends BaseScraper {
     };
 
     try {
-      const [redditData, officialData, wikiData, youtubeData] = await Promise.allSettled([
+      const [redditData, officialData, wikiData, youtubeData, twitterData] = await Promise.allSettled([
         this.scrapeReddit(),
         this.scrapeSupercell(),
         this.scrapeWiki(),
@@ -42,6 +43,9 @@ class ClashOfClansScraper extends BaseScraper {
 
       data.news.push(...redditData.news || []);
       data.news.push(...officialData.news || []);
+
+      data.codes.push(...twitterData.codes || []);
+      data.news.push(...twitterData.news || []);
       data.news.push(...wikiData.news || []);
 
       data.codes = this.deduplicateCodes(data.codes).slice(0, 20);
@@ -49,7 +53,7 @@ class ClashOfClansScraper extends BaseScraper {
 
       data.newMethods = this.extractEarningMethods();
       data.questionsAsked = await this.scrapeCommonQuestions();
-      data.sourcesChecked = ['Reddit', 'Supercell', 'Wiki', 'YouTube'];
+      data.sourcesChecked = ['Reddit', 'Supercell', 'Wiki', 'YouTube', 'Twitter/X'];
 
       logger.success(`✅ ${this.gameName}: Found ${data.codes.length} codes, ${data.news.length} news items`);
       return data;
@@ -291,6 +295,29 @@ class ClashOfClansScraper extends BaseScraper {
     } catch (error) {
       logger.warn(`Questions scraping error: ${error.message}`);
       return [];
+    }
+  }
+
+  /**
+   * Source: Official Twitter/X account — fastest code delivery
+   * Uses syndication API + nitter fallback, no API key needed
+   */
+  async scrapeTwitter() {
+    try {
+      logger.info(`📍 Scraping Twitter/X for ${this.gameName}...`);
+      const cacheData = this.getFromCache('twitter');
+      if (cacheData) return cacheData;
+
+      const tweets = await fetchTweets('ClashofClans', 30);
+      const codes = extractCodesFromTweets(tweets, /\\b[A-Z0-9]{6,12}\\b/g, 'Twitter @ClashofClans');
+      const news  = extractNewsFromTweets(tweets, ['gem', 'code', 'event', 'free', 'update', 'season'], 'Twitter @ClashofClans');
+
+      const result = { codes, news };
+      this.saveToCache('twitter', result);
+      return result;
+    } catch (error) {
+      logger.warn(`Twitter scraping error for ${this.gameName}: ${error.message}`);
+      return { codes: [], news: [] };
     }
   }
 }

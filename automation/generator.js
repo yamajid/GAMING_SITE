@@ -134,13 +134,131 @@ Requirements:
 
   /**
    * Generate codes file for Publisher (returns {path, content})
-   * Called by scheduler
+   * Called by scheduler.
+   *
+   * SEO-safe: reads the existing file and updates ONLY the codes table
+   * between the sentinel comments. Preserves frontmatter, SchemaOrg imports,
+   * descriptions, how-to sections, and all other SEO content.
    */
   async generateCodesFile(gameName, codes, lastUpdated) {
-    const content = await this.generateCodesGuide(gameName, codes || []);
+    const fs = require('fs');
+    const path = require('path');
     const folder = ContentGenerator.getDocsFolder(gameName);
-    const path = `docs/${folder}/working-codes.md`;
-    return { path, content };
+    const filePath = `docs/${folder}/working-codes.md`;
+    const absPath = path.resolve(__dirname, '..', '..', filePath);
+
+    // Read existing file to preserve SEO content
+    let existingContent = '';
+    try {
+      existingContent = fs.readFileSync(absPath, 'utf8');
+    } catch (e) {
+      // File doesn't exist yet — fall back to full template
+    }
+
+    const freshCodes = (codes || []).slice(0, 15);
+    const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const month = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    // Build just the codes table section
+    let codesTable = `<!-- AUTO-UPDATED: ${new Date().toISOString()} -->\n`;
+    codesTable += `**Last verified:** ${dateStr} ✅\n\n`;
+
+    if (freshCodes.length === 0) {
+      codesTable += `## ✅ Currently Working Codes\n\n`;
+      codesTable += `No new codes found today. We check every 12 hours — bookmark this page and check back soon!\n\n`;
+    } else {
+      codesTable += `## ✅ Currently Working Codes\n\n`;
+      codesTable += `| Code | Reward | Source | Status |\n`;
+      codesTable += `|------|--------|--------|--------|\n`;
+      freshCodes.forEach(code => {
+        const reward = code.reward || code.notes || 'In-game reward';
+        const source = code.source || 'Community';
+        codesTable += `| \`${code.code}\` | ${reward.substring(0, 40)} | ${source} | ✅ Active |\n`;
+      });
+      codesTable += `\n`;
+    }
+    codesTable += `<!-- END-AUTO-UPDATED -->`;
+
+    // If existing file has sentinel comments — replace just that section
+    if (existingContent.includes('<!-- AUTO-UPDATED:') && existingContent.includes('<!-- END-AUTO-UPDATED -->')) {
+      const startIdx = existingContent.indexOf('<!-- AUTO-UPDATED:');
+      const endIdx = existingContent.indexOf('<!-- END-AUTO-UPDATED -->') + '<!-- END-AUTO-UPDATED -->'.length;
+      const newContent = existingContent.substring(0, startIdx) + codesTable + existingContent.substring(endIdx);
+      return { path: filePath, content: newContent };
+    }
+
+    // If existing file has a "## ✅ Currently Working Codes" section — replace it
+    if (existingContent.includes('## ✅ Currently Working Codes')) {
+      // Find the section and replace through the next ## heading or end of file
+      const sectionStart = existingContent.indexOf('## ✅ Currently Working Codes');
+      const nextSection = existingContent.indexOf('\n## ', sectionStart + 5);
+      const before = existingContent.substring(0, sectionStart);
+      const after = nextSection !== -1 ? existingContent.substring(nextSection) : '';
+      return { path: filePath, content: before + codesTable + '\n' + after };
+    }
+
+    // Existing file has no codes section yet — update the "Last verified" date and append codes
+    if (existingContent.length > 100) {
+      // Update date in frontmatter title if present
+      let updated = existingContent.replace(
+        /\*\*Last verified:\*\*.*\n/,
+        `**Last verified:** ${dateStr} ✅\n`
+      );
+      // Append codes table before the first ## section after the intro
+      const firstH2 = updated.indexOf('\n## ');
+      if (firstH2 !== -1) {
+        updated = updated.substring(0, firstH2) + '\n\n' + codesTable + updated.substring(firstH2);
+      } else {
+        updated += '\n\n' + codesTable;
+      }
+      return { path: filePath, content: updated };
+    }
+
+    // Fallback: file doesn't exist or is empty — generate minimal SEO-safe file
+    const content = this.templateSEOCodesFile(gameName, folder, freshCodes, month, codesTable);
+    return { path: filePath, content };
+  }
+
+  /**
+   * Fallback template used only when working-codes.md doesn't exist yet.
+   * Generates a full SEO-compliant file with frontmatter and SchemaOrg.
+   */
+  templateSEOCodesFile(gameName, folder, codes, month, codesTable) {
+    const gameSlug = folder;
+    const currencyNames = {
+      roblox: 'Robux', fortnite: 'V-Bucks', 'mobile-legends': 'Diamonds',
+      'clash-of-clans': 'Gems', 'genshin-impact': 'Primogems',
+      'pubg-mobile': 'UC', minecraft: 'Minecoins', 'fifa-fc25': 'FC Points',
+    };
+    const currency = currencyNames[gameSlug] || 'in-game currency';
+
+    return `---
+title: "${gameName} Codes - Working Redeem Codes ${new Date().getFullYear()}"
+description: "All working ${gameName} codes for ${month}. Free ${currency} and rewards verified and updated every 12 hours."
+sidebar_position: 2
+slug: working-codes
+keywords: [${gameName.toLowerCase()} codes, working codes ${new Date().getFullYear()}, free ${currency.toLowerCase()} codes]
+tags: [${gameName}, Codes]
+---
+
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg
+  type="howto"
+  title="How to Redeem ${gameName} Codes"
+  description="Step-by-step guide to redeeming ${gameName} codes for free ${currency}."
+  steps={[
+    "Open the game on your device",
+    "Navigate to the code redemption section",
+    "Enter the code exactly as shown",
+    "Confirm to receive your reward"
+  ]}
+/>
+
+# ${gameName} Codes — ${month}
+
+${codesTable}
+`;
   }
 
   /**
@@ -234,7 +352,32 @@ Requirements:
         'Tap your username (top corner)',
         'Select the gem symbol',
         'Choose "Redeem Code"'
-      ]
+      ],
+      'Genshin Impact': [
+        'Go to genshin.hoyoverse.com/en/gift',
+        'Log in with your HoYoverse account',
+        'Select your game server',
+        'Enter the code and click Exchange',
+        'Collect rewards from your in-game mailbox'
+      ],
+      'PUBG Mobile': [
+        'Open PUBG Mobile',
+        'Tap your profile picture (top left)',
+        'Tap Events then Redeem',
+        'Enter the code and confirm'
+      ],
+      Minecraft: [
+        'Go to minecraft.net/redeem',
+        'Log in with your Microsoft account',
+        'Enter the redemption code',
+        'Click Redeem to confirm'
+      ],
+      'EA FC 25': [
+        'Go to ea.com/redeem',
+        'Log in with your EA account',
+        'Enter the code',
+        'Click Redeem — content is added to your account'
+      ],
     };
 
     const steps = redeemSteps[game] || ['Check in-game settings for redemption', 'Look for "Redeem Code" option'];

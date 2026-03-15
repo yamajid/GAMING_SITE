@@ -9,6 +9,7 @@
  */
 
 const axios = require('axios');
+const { fetchTweets, extractCodesFromTweets, extractNewsFromTweets } = require('./twitter-fetcher');
 const cheerio = require('cheerio');
 const BaseScraper = require('./base-scraper');
 const { fetchFandomPage } = require('./fandom-api');
@@ -41,7 +42,7 @@ class RobloxScraper extends BaseScraper {
 
     try {
       // Parallel fetch from all sources (with error handling)
-      const [redditData, blogData, wikiData, updatesData] = await Promise.allSettled([
+      const [redditData, blogData, wikiData, updatesData, twitterData] = await Promise.allSettled([
         this.scrapeReddit(),
         this.scrapeBlog(),
         this.scrapeWiki(),
@@ -57,6 +58,9 @@ class RobloxScraper extends BaseScraper {
       data.news.push(...redditData.news || []);
       data.news.push(...blogData.news || []);
       data.news.push(...wikiData.news || []);
+
+      data.codes.push(...twitterData.codes || []);
+      data.news.push(...twitterData.news || []);
       data.news.push(...updatesData.news || []);
 
       // Remove duplicates and sort by date
@@ -385,6 +389,29 @@ class RobloxScraper extends BaseScraper {
     } catch (error) {
       logger.warn(`Questions scraping error: ${error.message}`);
       return [];
+    }
+  }
+
+  /**
+   * Source: Official Twitter/X account — fastest code delivery
+   * Uses syndication API + nitter fallback, no API key needed
+   */
+  async scrapeTwitter() {
+    try {
+      logger.info(`📍 Scraping Twitter/X for ${this.gameName}...`);
+      const cacheData = this.getFromCache('twitter');
+      if (cacheData) return cacheData;
+
+      const tweets = await fetchTweets('Roblox', 30);
+      const codes = extractCodesFromTweets(tweets, /\\b[A-Z][A-Z0-9]{5,10}\\b/g, 'Twitter @Roblox');
+      const news  = extractNewsFromTweets(tweets, ['code', 'promo', 'free', 'event', 'robux', 'redeem'], 'Twitter @Roblox');
+
+      const result = { codes, news };
+      this.saveToCache('twitter', result);
+      return result;
+    } catch (error) {
+      logger.warn(`Twitter scraping error for ${this.gameName}: ${error.message}`);
+      return { codes: [], news: [] };
     }
   }
 }

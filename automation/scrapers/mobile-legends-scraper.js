@@ -9,6 +9,7 @@
  */
 
 const BaseScraper = require('./base-scraper');
+const { fetchTweets, extractCodesFromTweets, extractNewsFromTweets } = require('./twitter-fetcher');
 const { scrapeFandomWiki } = require('./fandom-api');
 const logger = require('../logger');
 
@@ -29,7 +30,7 @@ class MobileLegendsScraper extends BaseScraper {
     };
 
     try {
-      const [redditData, officialData, wikiData, discordData] = await Promise.allSettled([
+      const [redditData, officialData, wikiData, discordData, twitterData] = await Promise.allSettled([
         this.scrapeReddit(),
         this.scrapeOfficial(),
         this.scrapeWiki(),
@@ -43,6 +44,9 @@ class MobileLegendsScraper extends BaseScraper {
 
       data.news.push(...redditData.news || []);
       data.news.push(...officialData.news || []);
+
+      data.codes.push(...twitterData.codes || []);
+      data.news.push(...twitterData.news || []);
       data.news.push(...wikiData.news || []);
 
       data.codes = this.deduplicateCodes(data.codes).slice(0, 25);
@@ -50,7 +54,7 @@ class MobileLegendsScraper extends BaseScraper {
 
       data.newMethods = this.extractEarningMethods();
       data.questionsAsked = await this.scrapeCommonQuestions();
-      data.sourcesChecked = ['Reddit', 'Official', 'Wiki', 'Discord'];
+      data.sourcesChecked = ['Reddit', 'Official', 'Wiki', 'Discord', 'Twitter/X'];
 
       logger.success(`✅ ${this.gameName}: Found ${data.codes.length} codes, ${data.news.length} news items`);
       return data;
@@ -285,6 +289,29 @@ class MobileLegendsScraper extends BaseScraper {
     } catch (error) {
       logger.warn(`Questions scraping error: ${error.message}`);
       return [];
+    }
+  }
+
+  /**
+   * Source: Official Twitter/X account — fastest code delivery
+   * Uses syndication API + nitter fallback, no API key needed
+   */
+  async scrapeTwitter() {
+    try {
+      logger.info(`📍 Scraping Twitter/X for ${this.gameName}...`);
+      const cacheData = this.getFromCache('twitter');
+      if (cacheData) return cacheData;
+
+      const tweets = await fetchTweets('MobileLegendsOL', 30);
+      const codes = extractCodesFromTweets(tweets, /\\b[A-Z0-9]{6,12}\\b/g, 'Twitter @MobileLegendsOL');
+      const news  = extractNewsFromTweets(tweets, ['diamond', 'code', 'free', 'event', 'redeem', 'reward'], 'Twitter @MobileLegendsOL');
+
+      const result = { codes, news };
+      this.saveToCache('twitter', result);
+      return result;
+    } catch (error) {
+      logger.warn(`Twitter scraping error for ${this.gameName}: ${error.message}`);
+      return { codes: [], news: [] };
     }
   }
 }
