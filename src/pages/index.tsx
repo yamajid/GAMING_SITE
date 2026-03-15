@@ -53,6 +53,50 @@ const games = [
     stats: { users: '50M+', guides: '3' },
     color: '#FF8C00',
   },
+  {
+    title: '✨ Genshin Impact',
+    icon: '✨',
+    description: 'Free Primogems daily. Events, Abyss, commissions — 27+ wishes/month.',
+    links: [
+      { label: 'Free Primogems Guide', href: '/docs/genshin-impact/free-primogems-guide' },
+      { label: 'Working Codes', href: '/docs/genshin-impact/working-codes' },
+    ],
+    stats: { users: '60M+', guides: '2' },
+    color: '#4A90D9',
+  },
+  {
+    title: '🔫 PUBG Mobile',
+    icon: '🔫',
+    description: 'Free UC without surveys. Events, Google Rewards, Microsoft points.',
+    links: [
+      { label: 'Free UC Guide', href: '/docs/pubg-mobile/free-uc-guide' },
+      { label: 'Working Codes', href: '/docs/pubg-mobile/working-codes' },
+    ],
+    stats: { users: '100M+', guides: '2' },
+    color: '#F5A623',
+  },
+  {
+    title: '⛏️ Minecraft',
+    icon: '⛏️',
+    description: 'Free Minecoins via Microsoft Rewards. No surveys, no scams.',
+    links: [
+      { label: 'Free Minecoins Guide', href: '/docs/minecraft/free-minecoins-guide' },
+      { label: 'Working Codes', href: '/docs/minecraft/working-codes' },
+    ],
+    stats: { users: '170M+', guides: '2' },
+    color: '#7ED321',
+  },
+  {
+    title: '⚽ EA FC 25',
+    icon: '⚽',
+    description: 'Free coins and packs in Ultimate Team. Trading, SBCs, objectives.',
+    links: [
+      { label: 'Free Coins Guide', href: '/docs/fifa-fc25/free-fc-points-guide' },
+      { label: 'Working Codes', href: '/docs/fifa-fc25/working-codes' },
+    ],
+    stats: { users: '150M+', guides: '2' },
+    color: '#417505',
+  },
 ];
 
 const features = [
@@ -144,8 +188,8 @@ function Homepage() {
               </Link>
             </div>
             <div className={styles.heroStats}>
-              <span>4 Games</span>
-              <span>12+ Guides</span>
+              <span>8 Games</span>
+              <span>25+ Guides</span>
               <span>Updated Weekly</span>
             </div>
           </div>

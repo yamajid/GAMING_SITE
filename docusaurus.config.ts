@@ -139,22 +139,14 @@ const config: Config = {
         {
           title: 'Games',
           items: [
-            {
-              label: 'Roblox — Free Robux',
-              to: '/docs/roblox/earn-free-robux-2026',
-            },
-            {
-              label: 'Fortnite — Free V-Bucks',
-              to: '/docs/fortnite/free-vbucks-guide',
-            },
-            {
-              label: 'Mobile Legends — Free Diamonds',
-              to: '/docs/mobile-legends/free-diamonds-guide',
-            },
-            {
-              label: 'Clash of Clans — Free Gems',
-              to: '/docs/clash-of-clans/achievements-gems-guide',
-            },
+            { label: 'Roblox — Free Robux', to: '/docs/roblox/earn-free-robux-2026' },
+            { label: 'Fortnite — Free V-Bucks', to: '/docs/fortnite/free-vbucks-guide' },
+            { label: 'Mobile Legends — Free Diamonds', to: '/docs/mobile-legends/free-diamonds-guide' },
+            { label: 'Clash of Clans — Free Gems', to: '/docs/clash-of-clans/achievements-gems-guide' },
+            { label: 'Genshin Impact — Free Primogems', to: '/docs/genshin-impact/free-primogems-guide' },
+            { label: 'PUBG Mobile — Free UC', to: '/docs/pubg-mobile/free-uc-guide' },
+            { label: 'Minecraft — Free Minecoins', to: '/docs/minecraft/free-minecoins-guide' },
+            { label: 'EA FC 25 — Free Coins', to: '/docs/fifa-fc25/free-fc-points-guide' },
           ],
         },
         {

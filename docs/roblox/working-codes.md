@@ -62,3 +62,46 @@ These codes no longer work but are kept here for reference:
 ---
 
 *Want more free Robux? See our full [earning guide](/docs/roblox/earn-free-robux-2026) for 7 legitimate methods.*
+
+## How to Never Miss a New Code
+
+Missing a Roblox promo code is frustrating — many expire within 48 hours. Here's how to catch every single one:
+
+**Follow these accounts for instant code alerts:**
+- [@Roblox](https://twitter.com/roblox) on Twitter/X — official announcements land here first
+- [@RobloxDev](https://twitter.com/robloxdev) — developer events sometimes include exclusive codes
+- r/roblox on Reddit — the community posts new codes within minutes of release
+
+**Bookmark the official redeem page:** [roblox.com/promocodes](https://www.roblox.com/promocodes) — you can quickly check if a code is still valid before hunting for new ones.
+
+## Understanding Roblox Code Rewards
+
+Promo codes in Roblox give **avatar items, not Robux directly**. Here's what different types of codes give:
+
+| Code Type | What You Get | Example |
+|-----------|-------------|---------|
+| Brand partnership | Exclusive accessory | Target, Walmart codes |
+| Event codes | Seasonal items | Bloxy Awards, RDC |
+| Creator codes | Unique cosmetics | YouTuber partnerships |
+| Community codes | Free items | Anniversary codes |
+
+None of these give Robux directly. For earning actual Robux, see our [full earning guide](/docs/roblox/earn-free-robux-2026).
+
+## Are Roblox Codes Safe?
+
+Official codes are always redeemed at **roblox.com/promocodes** — the official Roblox website. Never enter a code on a third-party site. Any site that asks you to "verify your account" or enter your password to redeem a code is a phishing scam.
+
+Legitimate codes:
+- Work on the official Roblox website only
+- Never ask for your password
+- Give items, not Robux
+- Are announced from official Roblox channels
+
+## What To Do If a Code Doesn't Work
+
+1. **Check for typos** — codes are case-sensitive
+2. **Verify it hasn't expired** — codes can expire within hours of announcement
+3. **Check your region** — some codes are region-locked (US only, etc.)
+4. **Make sure you're logged in** — codes require an active account
+
+If the code was announced recently and still isn't working, it may be a fake code. Stick to sources listed above.

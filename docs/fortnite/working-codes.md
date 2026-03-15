@@ -54,3 +54,37 @@ Every "free V-Bucks code generator" online is a scam. Here's how they work:
 ---
 
 *For the full breakdown of legitimate V-Bucks earning methods, see our [Free V-Bucks Guide](/docs/fortnite/free-vbucks-guide).*
+
+## Fortnite Support-a-Creator: How It Actually Works
+
+The Support-a-Creator (SAC) program is widely misunderstood. Here's the reality:
+
+**What it does:** When you enter a creator code in the Fortnite item shop and make a purchase, the creator earns a commission (roughly 5% of the purchase price). You pay the same amount regardless.
+
+**What it does NOT do:** Give you V-Bucks, discounts, or any reward whatsoever. Creator codes are purely a way to support content creators you like.
+
+**Should you use one?** If you're buying V-Bucks or items anyway, entering a creator code costs you nothing and helps someone out. Popular codes: `NINJA`, `LOEYA`, `TFUE`, `CLIX`.
+
+## How to Get V-Bucks at a Discount (Legitimately)
+
+While there are no free V-Bucks codes, you can pay less for V-Bucks through:
+
+**Gift cards on sale** — Target, Walmart, and GameStop run 10–20% off gaming gift card sales several times a year (typically Black Friday, back-to-school, and holiday seasons). Buy Fortnite V-Bucks gift cards during these sales.
+
+**Fortnite Crew value** — At $11.99/month, Crew includes 1,000 V-Bucks + the current Battle Pass. Since the Battle Pass alone costs 950 V-Bucks (~$7.99), you're essentially getting 1,000 V-Bucks for ~$4/month if you play every season.
+
+**Battle Pass self-funding** — Complete each Battle Pass fully (level 100+) to earn back more V-Bucks than you spent, funding the next season's pass for free. See our [Battle Pass ROI guide](/docs/fortnite/battle-pass-roi).
+
+## Common V-Bucks Scams to Avoid
+
+The "free V-Bucks" scam space is enormous. Here's exactly what happens with each type:
+
+**"V-Bucks generator" websites:** These collect your Epic Games login, steal your account, and sell it. They generate nothing. Epic has no external API that allows third parties to add V-Bucks.
+
+**Discord "giveaway" bots:** Either harvest your Discord account or redirect to phishing sites. Legitimate giveaways come directly from verified creator accounts.
+
+**"Survey for V-Bucks" sites:** You complete surveys, they make money from the data, you receive nothing. These have been running since 2018 with zero legitimate payouts ever recorded.
+
+**YouTube "V-Bucks glitch" videos:** Drive clicks with false thumbnails. The "glitch" either doesn't work or requires you to visit a scam site.
+
+The only entities that can add V-Bucks to your account are Epic Games directly. Full stop.

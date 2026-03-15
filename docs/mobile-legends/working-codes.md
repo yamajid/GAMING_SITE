@@ -66,3 +66,51 @@ Yes — through events, not codes. Read our [event farming guide](/docs/mobile-l
 ---
 
 *Looking for more free diamonds? See our complete [free diamonds guide](/docs/mobile-legends/free-diamonds-guide).*
+
+## How to Find New MLBB Codes Before They Expire
+
+MLBB codes expire quickly — sometimes within 24 hours. Here's how to catch them the moment they drop:
+
+**Official sources to monitor:**
+- [Mobile Legends official Facebook page](https://www.facebook.com/MobileLegendsGame) — most codes drop here first
+- MLBB official YouTube channel — live events often include codes in the stream chat
+- In-game notifications — Moonton sometimes sends codes directly via in-game mail
+
+**Community sources:**
+- r/MobileLegendsGame — active community that shares codes immediately
+- MLBB Discord servers — some fan servers have dedicated code channels
+
+## Understanding MLBB Diamond Values
+
+Knowing what diamonds are worth helps you appreciate what free codes are giving you:
+
+| Diamonds | USD Equivalent | What It Can Buy |
+|----------|---------------|-----------------|
+| 50 | ~$0.50 | Fragment or partial chest |
+| 100 | ~$1.00 | 1 basic hero trial card |
+| 500 | ~$5.00 | Small skin shard bundle |
+| 1,000 | ~$10.00 | Budget skin or fragments |
+| 2,000 | ~$20.00 | 1 Epic skin directly |
+
+Most codes give 50–200 diamonds, which adds up meaningfully when combined with [event farming](/docs/mobile-legends/event-farming).
+
+## Why MLBB Codes Are Rarer Than Other Games
+
+Moonton's monetization strategy differs from Roblox or Fortnite. Rather than frequent promo codes, MLBB drives spending through:
+
+- **Seasonal events** with free reward tracks
+- **Starlight membership** (~$2.99/month) with monthly exclusive skin
+- **Weekly missions** giving diamonds and fragments
+- **Top-up bonuses** rewarding purchases with bonus diamonds
+
+This means the best free diamonds come from events, not codes. See our [event farming guide](/docs/mobile-legends/event-farming) for the most effective strategies.
+
+## MLBB Code Scams to Avoid
+
+Any website claiming to "generate" free diamonds for Mobile Legends is a scam. Common tactics:
+
+- **"Diamond generators"** — Steal your MLBB account credentials
+- **"Unlimited diamonds hack"** — Install malware on your device
+- **Fake APK downloads** — Modified app files that steal account data
+
+Moonton has no API allowing third parties to add diamonds. All legitimate diamonds come from in-game purchases, events, or official codes from Moonton's own channels.

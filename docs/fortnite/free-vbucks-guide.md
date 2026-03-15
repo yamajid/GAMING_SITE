@@ -5,12 +5,20 @@ keywords: ["free v-bucks", "how to get free v-bucks", "fortnite free v-bucks", "
 sidebar_position: 1
 slug: free-vbucks-guide
 authors:
+
+
   - name: Gaming Coins Hub
     title: Fortnite Expert & Community Researcher
     url: /about
 date: 2026-03-14
 tags: [Fortnite, Free V-Bucks, Battle Royale]
 ---
+
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="How to Get Free V-Bucks Without Spending Money" description="Complete guide to earning free V-Bucks in Fortnite 2026." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
 
 # How to Get Free V-Bucks Without Spending Money in 2026
 

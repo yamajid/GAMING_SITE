@@ -38,6 +38,38 @@ const sidebars: SidebarsConfig = {
         'clash-of-clans/working-codes',
       ],
     },
+    {
+      type: 'category',
+      label: '✨ Genshin Impact',
+      items: [
+        'genshin-impact/free-primogems-guide',
+        'genshin-impact/working-codes',
+      ],
+    },
+    {
+      type: 'category',
+      label: '🔫 PUBG Mobile',
+      items: [
+        'pubg-mobile/free-uc-guide',
+        'pubg-mobile/working-codes',
+      ],
+    },
+    {
+      type: 'category',
+      label: '⛏️ Minecraft',
+      items: [
+        'minecraft/free-minecoins-guide',
+        'minecraft/working-codes',
+      ],
+    },
+    {
+      type: 'category',
+      label: '⚽ EA FC 25',
+      items: [
+        'fifa-fc25/free-fc-points-guide',
+        'fifa-fc25/working-codes',
+      ],
+    },
     'faq',
     'privacy',
     'about',
