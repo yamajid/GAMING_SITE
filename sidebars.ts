@@ -43,6 +43,7 @@ const sidebars: SidebarsConfig = {
       label: '✨ Genshin Impact',
       items: [
         'genshin-impact/free-primogems-guide',
+        'genshin-impact/spiral-abyss-guide',
         'genshin-impact/working-codes',
       ],
     },
@@ -51,6 +52,7 @@ const sidebars: SidebarsConfig = {
       label: '🔫 PUBG Mobile',
       items: [
         'pubg-mobile/free-uc-guide',
+        'pubg-mobile/royal-pass-guide',
         'pubg-mobile/working-codes',
       ],
     },
@@ -59,6 +61,7 @@ const sidebars: SidebarsConfig = {
       label: '⛏️ Minecraft',
       items: [
         'minecraft/free-minecoins-guide',
+        'minecraft/marketplace-guide',
         'minecraft/working-codes',
       ],
     },
@@ -67,6 +70,7 @@ const sidebars: SidebarsConfig = {
       label: '⚽ EA FC 25',
       items: [
         'fifa-fc25/free-fc-points-guide',
+        'fifa-fc25/squad-building-guide',
         'fifa-fc25/working-codes',
       ],
     },

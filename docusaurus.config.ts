@@ -101,7 +101,7 @@ const config: Config = {
       {name: 'theme-color', content: '#667eea'},
     ],
     // Replace with your project's social card
-    image: 'img/og-image.jpg',
+    image: 'img/og-image.svg',
     colorMode: {
       respectPrefersColorScheme: true,
       defaultMode: 'light',
@@ -113,7 +113,7 @@ const config: Config = {
       logo: {
         alt: 'Gaming Coins Hub Logo',
         src: 'img/logo.png',
-        srcDark: 'img/logo-dark.png',
+        srcDark: 'img/logo-dark.svg',
       },
       items: [
         {
@@ -145,6 +145,7 @@ const config: Config = {
             { label: 'Mobile Legends — Free Diamonds', to: '/docs/mobile-legends/free-diamonds-guide' },
             { label: 'Clash of Clans — Free Gems', to: '/docs/clash-of-clans/achievements-gems-guide' },
             { label: 'Genshin Impact — Free Primogems', to: '/docs/genshin-impact/free-primogems-guide' },
+            { label: 'Genshin Impact — Spiral Abyss Guide', to: '/docs/genshin-impact/spiral-abyss-guide' },
             { label: 'PUBG Mobile — Free UC', to: '/docs/pubg-mobile/free-uc-guide' },
             { label: 'Minecraft — Free Minecoins', to: '/docs/minecraft/free-minecoins-guide' },
             { label: 'EA FC 25 — Free Coins', to: '/docs/fifa-fc25/free-fc-points-guide' },

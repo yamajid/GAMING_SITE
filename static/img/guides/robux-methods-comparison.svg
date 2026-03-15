@@ -1,0 +1,38 @@
+<svg width="720" height="280" viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="720" height="280" fill="#f8f9ff" rx="12"/>
+  <text x="360" y="30" text-anchor="middle" fill="#222" font-size="16" font-weight="bold">Free Robux Methods — Monthly Earnings Comparison</text>
+  <!-- Bars -->
+  <!-- Promo Codes -->
+  <rect x="60" y="200" width="70" height="20" fill="#667eea" rx="3"/>
+  <text x="95" y="195" text-anchor="middle" fill="#555" font-size="11">~100</text>
+  <text x="95" y="235" text-anchor="middle" fill="#444" font-size="11">Promo</text>
+  <text x="95" y="249" text-anchor="middle" fill="#444" font-size="11">Codes</text>
+  <!-- Affiliate -->
+  <rect x="165" y="160" width="70" height="60" fill="#667eea" rx="3"/>
+  <text x="200" y="155" text-anchor="middle" fill="#555" font-size="11">~300</text>
+  <text x="200" y="235" text-anchor="middle" fill="#444" font-size="11">Affiliate</text>
+  <text x="200" y="249" text-anchor="middle" fill="#444" font-size="11">Program</text>
+  <!-- Clothing -->
+  <rect x="270" y="120" width="70" height="100" fill="#7b8ef0" rx="3"/>
+  <text x="305" y="115" text-anchor="middle" fill="#555" font-size="11">~600</text>
+  <text x="305" y="235" text-anchor="middle" fill="#444" font-size="11">Clothing</text>
+  <text x="305" y="249" text-anchor="middle" fill="#444" font-size="11">Sales</text>
+  <!-- Premium Stipend -->
+  <rect x="375" y="155" width="70" height="65" fill="#8b9cf0" rx="3"/>
+  <text x="410" y="150" text-anchor="middle" fill="#555" font-size="11">450</text>
+  <text x="410" y="235" text-anchor="middle" fill="#444" font-size="11">Premium</text>
+  <text x="410" y="249" text-anchor="middle" fill="#444" font-size="11">Stipend</text>
+  <!-- Game Pass small -->
+  <rect x="480" y="90" width="70" height="130" fill="#4a5ae8" rx="3"/>
+  <text x="515" y="85" text-anchor="middle" fill="#555" font-size="11">~1,000</text>
+  <text x="515" y="235" text-anchor="middle" fill="#444" font-size="11">Game Pass</text>
+  <text x="515" y="249" text-anchor="middle" fill="#444" font-size="11">(small game)</text>
+  <!-- Game Pass popular -->
+  <rect x="585" y="50" width="70" height="170" fill="#3b4de0" rx="3"/>
+  <text x="620" y="45" text-anchor="middle" fill="#333" font-size="11" font-weight="bold">5,000+</text>
+  <text x="620" y="235" text-anchor="middle" fill="#333" font-size="11" font-weight="bold">Game Pass</text>
+  <text x="620" y="249" text-anchor="middle" fill="#333" font-size="11" font-weight="bold">(popular)</text>
+  <!-- X axis -->
+  <line x1="40" y1="220" x2="680" y2="220" stroke="#ccc" stroke-width="1"/>
+  <text x="360" y="270" text-anchor="middle" fill="#888" font-size="11">Robux per month (approximate) — effort increases left to right</text>
+</svg>

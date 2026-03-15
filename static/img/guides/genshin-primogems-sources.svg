@@ -1,0 +1,38 @@
+<svg width="720" height="260" viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="720" height="260" fill="#f0f4ff" rx="12"/>
+  <text x="360" y="28" text-anchor="middle" fill="#222" font-size="15" font-weight="bold">Genshin Impact — Free Primogems per Month</text>
+  <!-- Daily commissions -->
+  <rect x="40" y="50" width="180" height="36" fill="#667eea" rx="6"/>
+  <text x="50" y="73" fill="white" font-size="13" font-weight="bold">Daily Commissions</text>
+  <text x="230" y="73" fill="#333" font-size="13">~1,800 Primogems</text>
+  <text x="230" y="87" fill="#888" font-size="11">60/day × 30 days ≈ 11 wishes</text>
+  <!-- Spiral Abyss -->
+  <rect x="40" y="100" width="180" height="36" fill="#7b8ef0" rx="6"/>
+  <text x="50" y="123" fill="white" font-size="13" font-weight="bold">Spiral Abyss</text>
+  <text x="230" y="123" fill="#333" font-size="13">~1,200 Primogems</text>
+  <text x="230" y="137" fill="#888" font-size="11">600 per reset × 2 resets ≈ 7.5 wishes</text>
+  <!-- Version Events -->
+  <rect x="40" y="150" width="180" height="36" fill="#8b9cf0" rx="6"/>
+  <text x="50" y="173" fill="white" font-size="13" font-weight="bold">Version Events</text>
+  <text x="230" y="173" fill="#333" font-size="13">~1,000 Primogems</text>
+  <text x="230" y="187" fill="#888" font-size="11">Varies by version ≈ 6 wishes</text>
+  <!-- Weekly + Codes -->
+  <rect x="40" y="200" width="180" height="36" fill="#9faaf5" rx="6"/>
+  <text x="50" y="223" fill="white" font-size="13" font-weight="bold">Bosses + Codes</text>
+  <text x="230" y="223" fill="#333" font-size="13">~440 Primogems</text>
+  <text x="230" y="237" fill="#888" font-size="11">Weekly bosses + livestream codes ≈ 2.7 wishes</text>
+  <!-- Total bar -->
+  <rect x="490" y="50" width="8" height="186" fill="#ddd" rx="4"/>
+  <rect x="490" y="50" width="8" height="186" fill="url(#totalGrad)" rx="4"/>
+  <text x="510" y="73" fill="#333" font-size="13" font-weight="bold">Total:</text>
+  <text x="510" y="93" fill="#667eea" font-size="20" font-weight="bold">~4,440</text>
+  <text x="510" y="115" fill="#555" font-size="13">Primogems/month</text>
+  <text x="510" y="140" fill="#333" font-size="16" font-weight="bold">≈ 27 wishes</text>
+  <text x="510" y="160" fill="#888" font-size="11">completely free</text>
+  <defs>
+    <linearGradient id="totalGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#9faaf5"/>
+    </linearGradient>
+  </defs>
+</svg>

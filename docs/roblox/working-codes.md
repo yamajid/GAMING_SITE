@@ -28,6 +28,9 @@ import SchemaOrg from '@site/src/components/SchemaOrg';
 
 **Last verified:** March 15, 2026 ✅
 
+
+![How to redeem Roblox promo codes — 5 step visual guide](/img/guides/roblox-redeem-steps.svg)
+
 :::tip How to redeem
 Go to [roblox.com/promocodes](https://www.roblox.com/promocodes) → log in → enter the code → click Redeem. Items are added to your inventory instantly.
 :::

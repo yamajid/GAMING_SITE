@@ -52,6 +52,9 @@ Before we dive in, let's kill the myths:
 
 ---
 
+
+![Free Robux methods comparison — monthly earnings by method](/img/guides/robux-methods-comparison.svg)
+
 ## 📊 Quick Comparison: Free Robux Methods (Today's Rankings)
 
 | Method | Time Required | Robux/Month | Cost | Difficulty | Best For |

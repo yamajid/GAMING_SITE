@@ -92,6 +92,9 @@ HoYoverse regularly releases redemption codes during livestreams and special eve
 
 See our [working codes page](/docs/genshin-impact/working-codes) for currently active codes.
 
+
+![Genshin Impact free Primogem sources per month — visual breakdown](/img/guides/genshin-primogems-sources.svg)
+
 ## Monthly Free Primogem Summary
 
 | Source | Monthly Primogems | Wishes Equivalent |
