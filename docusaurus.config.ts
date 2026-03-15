@@ -91,13 +91,13 @@ const config: Config = {
       {property: 'og:url', content: 'https://farmcoins.netlify.app'},
       {property: 'og:title', content: 'Free In-Game Currency Guides | Gaming Coins Hub'},
       {property: 'og:description', content: 'Earn free Robux, V-Bucks, Diamonds & Gems — legitimate methods only. No scams. Updated weekly.'},
-      {property: 'og:image', content: 'https://farmcoins.netlify.app/img/og-image.jpg'},
+      {property: 'og:image', content: 'https://farmcoins.netlify.app/img/og-image.svg'},
       {property: 'og:locale', content: 'en_US'},
       {name: 'twitter:card', content: 'summary_large_image'},
       {name: 'twitter:site', content: '@GamingCoinsHub'},
       {name: 'twitter:title', content: 'Free In-Game Currency Guides | Gaming Coins Hub'},
       {name: 'twitter:description', content: 'Legit ways to earn free Robux, V-Bucks, Diamonds & Gems. Updated weekly.'},
-      {name: 'twitter:image', content: 'https://farmcoins.netlify.app/img/og-image.jpg'},
+      {name: 'twitter:image', content: 'https://farmcoins.netlify.app/img/og-image.svg'},
       {name: 'theme-color', content: '#667eea'},
     ],
     // Replace with your project's social card
@@ -107,6 +107,7 @@ const config: Config = {
       defaultMode: 'light',
       disableSwitch: false,
     },
+    breadcrumbs: true,
     navbar: {
       title: '🎮 Gaming Coins Hub',
       logo: {

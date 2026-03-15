@@ -2,6 +2,7 @@
 slug: gaming-currency-scams-exposed
 title: "Gaming Currency Scams Exposed: Why Free Generators Don't Work"
 authors: [gaming-coins-hub]
+description: "How gaming currency scams actually work — the technical breakdown of why free generators are impossible, and how to protect your account."
 date: 2026-03-14
 tags: [scams, security, generators]
 ---

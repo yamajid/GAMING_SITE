@@ -2,6 +2,7 @@
 slug: best-free-to-play-games-free-currency-2026
 title: "5 Games With the Most Generous Free Currency in 2026"
 authors: [gaming-coins-hub]
+description: "Ranking the 5 most generous free-to-play games for free currency in 2026 — Genshin Impact, Roblox, Fortnite, Mobile Legends, and Clash of Clans compared."
 date: 2026-03-10
 tags: [free-to-play, ranking, currency]
 ---
