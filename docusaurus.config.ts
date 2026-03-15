@@ -2,51 +2,28 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
 const config: Config = {
   title: 'Gaming Coins Hub',
   tagline: 'Honest guides to earn free in-game currency. No scams, no generators.',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
   url: 'https://farmcoins.netlify.app',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'gaming-coins-hub', // Usually your GitHub org/user name.
-  projectName: 'gaming-coins-hub', // Usually your repo name.
+  organizationName: 'yamajid',
+  projectName: 'GAMING_SITE',
 
-  onBrokenLinks: 'warn',
+  // Throw on broken links so Netlify build fails loudly instead of silently shipping 404s
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
 
-  plugins: [
-    // Google Analytics - Track user behavior for SEO insights
-    [
-      '@docusaurus/plugin-google-analytics',
-      {
-        trackingID: process.env.GOOGLE_ANALYTICS_ID || 'G-XXXXXXXXXX',
-        anonymizeIP: true,
-      },
-    ],
-    // Google Tag Manager - Enhanced tracking & conversion monitoring
-    [
-      '@docusaurus/plugin-google-tag-manager',
-      {
-        containerId: process.env.GTM_CONTAINER_ID || 'GTM-XXXXXX',
-      },
-    ],
-  ],
+  // No separate GA plugin needed — gtag is built into preset-classic below
+  plugins: [],
 
   presets: [
     [
@@ -54,30 +31,35 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/yamajid/GAMING_SITE/tree/main/',
-          // SEO: Enable better link checking
           routeBasePath: 'docs',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
         },
         blog: {
           showReadingTime: true,
+          blogTitle: 'Gaming Codes & Updates',
+          blogDescription: 'Latest promo codes, scam alerts, and gaming currency updates.',
+          postsPerPage: 10,
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
+            title: 'Gaming Coins Hub - Latest Codes & Updates',
+            description: 'Fresh promo codes and gaming currency guides, updated weekly.',
           },
-          editUrl: 'https://github.com/yamajid/GAMING_SITE/tree/main/',
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
-          // SEO: Show publication dates
           showLastUpdateTime: true,
-          showLastUpdateAuthor: true,
+        },
+        // Google Analytics 4 via gtag (correct way in Docusaurus 3)
+        gtag: {
+          trackingID: process.env.GOOGLE_ANALYTICS_ID || 'G-XXXXXXXXXX',
+          anonymizeIP: true,
         },
         sitemap: {
           changefreq: 'weekly',
-          priority: 0.5,
-          ignorePatterns: ['/tags/**', '/docs/tutorial-*/**'],
+          priority: 0.7,
+          ignorePatterns: ['/tags/**'],
           filename: 'sitemap.xml',
         },
         theme: {
@@ -88,7 +70,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Enhanced metadata for SEO - used for Open Graph, Twitter Cards
     metadata: [
       {
         name: 'google-site-verification',
@@ -96,104 +77,28 @@ const config: Config = {
       },
       {
         name: 'description',
-        content: 'Ultimate guides to earn free in-game currency (Robux, V-Bucks, Diamonds, Gems). Legitimate methods only - no scams, no generators. Updated daily with fresh codes and strategies.',
+        content: 'Free in-game currency guides for Roblox, Fortnite, Mobile Legends & Clash of Clans. Legitimate methods only — no scams, no generators. Updated weekly.',
       },
       {
         name: 'keywords',
-        content: 'free robux, free v-bucks, free diamonds, free gems, how to earn, no scam, working codes 2026',
+        content: 'free robux 2026, free v-bucks, free diamonds mobile legends, free gems clash of clans, working promo codes, no scam gaming guide',
       },
       {
         name: 'author',
         content: 'Gaming Coins Hub',
       },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1.0, maximum-scale=5.0',
-      },
-      {
-        httpEquiv: 'x-ua-compatible',
-        content: 'IE=edge',
-      },
-      // Open Graph - Social Media Sharing
-      {
-        property: 'og:type',
-        content: 'website',
-      },
-      {
-        property: 'og:url',
-        content: 'https://farmcoins.netlify.app',
-      },
-      {
-        property: 'og:title',
-        content: 'Gaming Coins Hub - Free In-Game Currency Guides',
-      },
-      {
-        property: 'og:description',
-        content: 'Earn free Robux, V-Bucks, Diamonds, Gems. No scams. Guides updated daily with fresh codes.',
-      },
-      {
-        property: 'og:image',
-        content: 'https://farmcoins.netlify.app/img/og-image.jpg',
-      },
-      {
-        property: 'og:image:width',
-        content: '1200',
-      },
-      {
-        property: 'og:image:height',
-        content: '630',
-      },
-      {
-        property: 'og:locale',
-        content: 'en_US',
-      },
-      // Twitter Card - Tweet Optimization
-      {
-        name: 'twitter:card',
-        content: 'summary_large_image',
-      },
-      {
-        name: 'twitter:site',
-        content: '@GamingCoinsHub',
-      },
-      {
-        name: 'twitter:creator',
-        content: '@GamingCoinsHub',
-      },
-      {
-        name: 'twitter:title',
-        content: 'Gaming Coins Hub - Free In-Game Currency',
-      },
-      {
-        name: 'twitter:description',
-        content: 'Legit ways to earn free Robux, V-Bucks, Diamonds & Gems. Updated daily.',
-      },
-      {
-        name: 'twitter:image',
-        content: 'https://farmcoins.netlify.app/img/twitter-card.jpg',
-      },
-      // Mobile Optimization
-      {
-        name: 'theme-color',
-        content: '#667eea',
-      },
-      {
-        name: 'apple-mobile-web-app-capable',
-        content: 'yes',
-      },
-      {
-        name: 'apple-mobile-web-app-status-bar-style',
-        content: 'black-translucent',
-      },
-      {
-        name: 'apple-mobile-web-app-title',
-        content: 'Gaming Coins Hub',
-      },
-      // Canonical URL - Prevent duplicate content issues
-      {
-        rel: 'canonical',
-        href: 'https://farmcoins.netlify.app',
-      },
+      {property: 'og:type', content: 'website'},
+      {property: 'og:url', content: 'https://farmcoins.netlify.app'},
+      {property: 'og:title', content: 'Free In-Game Currency Guides | Gaming Coins Hub'},
+      {property: 'og:description', content: 'Earn free Robux, V-Bucks, Diamonds & Gems — legitimate methods only. No scams. Updated weekly.'},
+      {property: 'og:image', content: 'https://farmcoins.netlify.app/img/og-image.jpg'},
+      {property: 'og:locale', content: 'en_US'},
+      {name: 'twitter:card', content: 'summary_large_image'},
+      {name: 'twitter:site', content: '@GamingCoinsHub'},
+      {name: 'twitter:title', content: 'Free In-Game Currency Guides | Gaming Coins Hub'},
+      {name: 'twitter:description', content: 'Legit ways to earn free Robux, V-Bucks, Diamonds & Gems. Updated weekly.'},
+      {name: 'twitter:image', content: 'https://farmcoins.netlify.app/img/og-image.jpg'},
+      {name: 'theme-color', content: '#667eea'},
     ],
     // Replace with your project's social card
     image: 'img/og-image.jpg',
@@ -235,20 +140,20 @@ const config: Config = {
           title: 'Games',
           items: [
             {
-              label: 'Roblox Guides',
-              to: '/docs/roblox',
+              label: 'Roblox — Free Robux',
+              to: '/docs/roblox/earn-free-robux-2026',
             },
             {
-              label: 'Fortnite Guides',
-              to: '/docs/fortnite',
+              label: 'Fortnite — Free V-Bucks',
+              to: '/docs/fortnite/free-vbucks-guide',
             },
             {
-              label: 'Mobile Legends Guides',
-              to: '/docs/mobile-legends',
+              label: 'Mobile Legends — Free Diamonds',
+              to: '/docs/mobile-legends/free-diamonds-guide',
             },
             {
-              label: 'Clash of Clans Guides',
-              to: '/docs/clash-of-clans',
+              label: 'Clash of Clans — Free Gems',
+              to: '/docs/clash-of-clans/achievements-gems-guide',
             },
           ],
         },
@@ -257,7 +162,7 @@ const config: Config = {
           items: [
             {
               label: 'How to Stay Safe',
-              to: '/docs/roblox/earn-free-robux-2026#-whats-not-real',
+              to: '/docs/roblox/earn-free-robux-2026#%EF%B8%8F-whats-not-real',
             },
             {
               label: 'Scam Analysis',

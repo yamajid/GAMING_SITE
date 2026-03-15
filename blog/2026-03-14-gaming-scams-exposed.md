@@ -4,12 +4,14 @@ title: "Gaming Currency Scams Exposed: Why Free Generators Don't Work"
 authors:
   name: Gaming Coins Hub
   title: Community Researcher
-  url: /about
+  url: https://farmcoins.netlify.app/docs/about
 date: 2026-03-14
 tags: [scams, security, generators]
 ---
 
 # Why Free Gaming Currency Generators Are All Scams
+
+<!-- truncate -->
 
 If you've searched "free Robux generator" or "free V-Bucks tool," you've seen plenty of suspicious websites promising instant currency. Here's the truth: **they're all scams**.
 

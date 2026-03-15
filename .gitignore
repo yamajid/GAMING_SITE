@@ -1,1 +1,9 @@
 node_modules/
+build/
+.cache/
+.docusaurus/
+.env
+.env.local
+.env.scraper
+*.log
+

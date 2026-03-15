@@ -1,6 +1,6 @@
 ---
 title: About Gaming Coins Hub
-slug: /about
+slug: about
 ---
 
 # About Gaming Coins Hub

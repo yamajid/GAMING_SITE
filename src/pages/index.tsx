@@ -117,17 +117,17 @@ function Feature({ title, description }) {
 function Homepage() {
   return (
     <Layout
-      title="Gaming Coins Hub - Free In-Game Currency Guides"
-      description="Honest guides to earn free Robux, V-Bucks, Diamonds, and Gems. No scams, no generators. Updated 2026."
+      title="Free In-Game Currency Guides for Roblox, Fortnite & More"
+      description="Legitimate ways to earn free Robux, V-Bucks, Diamonds, and Gems in 2026. No scams, no generators. Guides updated weekly."
     >
       <main className={styles.main}>
         {/* Hero Section */}
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h1>🎮 Gaming Coins Hub</h1>
+            <h1>Free In-Game Currency Guides — No Scams, No Generators</h1>
             <p>
-              Honest, updated, <strong>legit ways</strong> to earn in-game currency <br />
-              <span className={styles.heroSub}>No scams. No generators. No surveys.</span>
+              Honest, updated, <strong>legit ways</strong> to earn free Robux, V-Bucks, Diamonds & Gems <br />
+              <span className={styles.heroSub}>Roblox · Fortnite · Mobile Legends · Clash of Clans</span>
             </p>
             <div className={styles.heroButtons}>
               <Link
@@ -197,7 +197,7 @@ function Homepage() {
             Pick a game and start earning today. Most guides show results in 24-48 hours.
           </p>
           <div className={styles.ctaButtons}>
-            <Link className={clsx(styles.primaryButton)} to="/docs/roblox">
+            <Link className={clsx(styles.primaryButton)} to="/docs/roblox/earn-free-robux-2026">
               Browse Roblox Guides
             </Link>
             <Link className={clsx(styles.secondaryButton)} to="/blog">
