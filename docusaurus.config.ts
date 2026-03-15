@@ -47,7 +47,7 @@ const config: Config = {
             description: 'Fresh promo codes and gaming currency guides, updated weekly.',
           },
           onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
+          onInlineAuthors: 'ignore',
           onUntruncatedBlogPosts: 'warn',
           showLastUpdateTime: true,
         },

@@ -1,10 +1,7 @@
 ---
 slug: gaming-currency-scams-exposed
 title: "Gaming Currency Scams Exposed: Why Free Generators Don't Work"
-authors:
-  name: Gaming Coins Hub
-  title: Community Researcher
-  url: https://farmcoins.netlify.app/docs/about
+authors: [gaming-coins-hub]
 date: 2026-03-14
 tags: [scams, security, generators]
 ---
