@@ -98,3 +98,12 @@ Before spending Minecoins, know what's available for free:
 ---
 
 *Looking for working Minecraft codes? Check our [Minecraft codes page](/docs/minecraft/working-codes).*
+
+## Related Guides
+
+Looking for free currency in other games? Our guides cover all the major titles:
+
+- [Free Robux in Roblox](/docs/roblox/earn-free-robux-2026) — 7 legitimate methods
+- [Free Primogems in Genshin Impact](/docs/genshin-impact/free-primogems-guide) — 27 wishes/month free
+- [Free UC in PUBG Mobile](/docs/pubg-mobile/free-uc-guide) — Google Rewards strategy
+- [Free Coins in EA FC 25](/docs/fifa-fc25/free-fc-points-guide) — Transfer Market guide

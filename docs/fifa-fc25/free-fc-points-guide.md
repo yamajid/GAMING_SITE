@@ -101,3 +101,12 @@ You don't need expensive cards to compete. Here's a realistic progression:
 ---
 
 *Check our [working codes page](/docs/fifa-fc25/working-codes) for any active EA FC 25 promo codes.*
+
+## Related Guides
+
+Looking for free currency in other games?
+
+- [Free Robux in Roblox](/docs/roblox/earn-free-robux-2026) — creator program, promo codes
+- [Free V-Bucks in Fortnite](/docs/fortnite/free-vbucks-guide) — Battle Pass self-funding
+- [Free Minecoins in Minecraft](/docs/minecraft/free-minecoins-guide) — Microsoft Rewards strategy
+- [Free Primogems in Genshin Impact](/docs/genshin-impact/free-primogems-guide) — 27 wishes/month

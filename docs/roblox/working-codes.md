@@ -7,6 +7,23 @@ keywords: [roblox promo codes 2026, working roblox codes, free roblox items, rob
 tags: [Roblox, Promo Codes]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg
+  type="howto"
+  title="How to Redeem Roblox Promo Codes"
+  description="Step-by-step guide to redeeming Roblox promo codes for free items."
+  steps={[
+    "Go to roblox.com/promocodes in your web browser",
+    "Log in to your Roblox account",
+    "Type the promo code in the text box",
+    "Click the Redeem button",
+    "Check your avatar inventory — items appear instantly"
+  ]}
+/>
+
+
+
 # Roblox Promo Codes — March 2026
 
 **Last verified:** March 15, 2026 ✅

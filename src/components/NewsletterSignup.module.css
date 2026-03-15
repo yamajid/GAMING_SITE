@@ -1,0 +1,76 @@
+.wrap {
+  background: var(--ifm-color-primary-lightest, #f0f4ff);
+  border: 1px solid var(--ifm-color-primary-light, #d0dcff);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.text strong {
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.text p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  font-size: 0.95rem;
+  min-width: 200px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+}
+
+.button {
+  padding: 10px 20px;
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.success {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ifm-color-success-darkest, #1a6e2e);
+}
+
+.checkmark {
+  font-size: 1.5rem;
+  color: var(--ifm-color-success);
+}

@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
+import NewsletterSignup from '../components/NewsletterSignup';
 
 const games = [
   {
@@ -213,6 +214,11 @@ function Homepage() {
               <Feature key={idx} {...feature} />
             ))}
           </div>
+        </section>
+
+        {/* Newsletter Signup */}
+        <section className={styles.newsletter}>
+          <NewsletterSignup />
         </section>
 
         {/* Research Stats */}

@@ -62,3 +62,42 @@ Direct UC codes are extremely rare — most codes give items or fragments rather
 ---
 
 *For free UC without codes, see our complete [free UC guide](/docs/pubg-mobile/free-uc-guide).*
+
+## PUBG Mobile Redemption: Full Step-by-Step
+
+Redeeming codes in PUBG Mobile is slightly different from most games — here's the exact process:
+
+**Method 1 — In-Game:**
+1. Open PUBG Mobile
+2. Tap your **profile picture** (top left)
+3. Scroll down and tap **"Events"**
+4. Look for the **"Redeem"** option in the events menu
+5. Enter your code and confirm
+
+**Method 2 — Official Website:**
+1. Visit [pubgmobile.com/en-US/redeem.html](https://www.pubgmobile.com/en-US/redeem.html)
+2. Log in with your PUBG Mobile account (Facebook, Twitter, or guest ID)
+3. Enter your Character ID (found in your in-game profile)
+4. Enter the redemption code
+5. Rewards are sent to your in-game mailbox
+
+**Finding your Character ID:**
+Open PUBG Mobile → Profile → your numeric ID is displayed below your avatar name.
+
+## Why PUBG Mobile Is Harder for Free-to-Play Players
+
+PUBG Mobile's monetization is more aggressive than most games on this list. The Royal Pass — their seasonal premium track — costs 360 UC (~$10) per season, and the best cosmetics are locked behind it.
+
+The honest reality: truly free UC is limited to 60–300 per month through Google/Microsoft rewards and events. This isn't enough for a Royal Pass every season without some spending.
+
+**Recommended free-to-play strategy:**
+- Use Google Opinion Rewards for $3–10/month in Play credits
+- Claim all free Royal Pass missions (free tier) every season
+- Focus on permanent cosmetics earned through gameplay over random crate spending
+- Save UC for Royal Pass upgrades rather than luck-based crates
+
+## Classic Crate vs. Premium Crate: Are They Worth It?
+
+Short answer: **no**. Both crate types use a luck-based system where the expected cost for a specific outfit is 500–3,000 UC. For free-to-play players, spending earned UC on crates is almost always a losing bet.
+
+The only exception: during specific promotions where crate items are available as direct purchases rather than luck pulls. Watch the in-game shop for these windows.

@@ -96,3 +96,12 @@ Since UC from free methods is limited, spend it strategically:
 ---
 
 *Check our [working codes page](/docs/pubg-mobile/working-codes) for active PUBG Mobile codes this week.*
+
+## Related Guides
+
+Looking for free currency in other games? Our guides cover all the major titles:
+
+- [Free Robux in Roblox](/docs/roblox/earn-free-robux-2026) — 7 legitimate methods
+- [Free V-Bucks in Fortnite](/docs/fortnite/free-vbucks-guide) — Save the World, Battle Pass loop
+- [Free Primogems in Genshin Impact](/docs/genshin-impact/free-primogems-guide) — 27 wishes/month free
+- [Free Diamonds in Mobile Legends](/docs/mobile-legends/free-diamonds-guide) — event farming guide

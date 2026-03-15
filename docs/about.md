@@ -1,84 +1,96 @@
 ---
 title: About Gaming Coins Hub
+description: "About Gaming Coins Hub — who we are, our mission, and why we're the most trusted free gaming currency guide online."
 slug: about
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg
+  type="article"
+  title="About Gaming Coins Hub"
+  description="Gaming Coins Hub is the most trusted source for legitimate in-game currency guides. No scams, no generators, no surveys."
+  datePublished="2026-01-01"
+  dateModified="2026-03-15"
+/>
+
 # About Gaming Coins Hub
+
+**Gaming Coins Hub** is an independent research site dedicated to one goal: helping players earn in-game currency legitimately, without falling for the scams that flood search results.
+
+We cover 8 games — Roblox, Fortnite, Mobile Legends, Clash of Clans, Genshin Impact, PUBG Mobile, Minecraft, and EA FC 25 — with verified guides updated every week.
 
 ## Our Mission
 
-**Gaming Coins Hub** is dedicated to helping players earn in-game currency legitimately. We expose the scams that plague the gaming community while providing verified, tested methods to earn Robux, V-Bucks, Diamonds, Gems, and more — without paying a dime.
+The search results for "free Robux" or "free V-Bucks" are overwhelmingly filled with generators, phishing sites, and survey farms that steal accounts and personal data. Millions of players — many of them kids — fall for these scams every month.
 
-## Why We Started
+We built Gaming Coins Hub to be the resource we wish had existed: honest, current, and focused entirely on methods that actually work without putting your account at risk.
 
-The gaming community is flooded with fake generators and scam websites promising free currency. We created Gaming Coins Hub because:
+## What Makes Our Guides Different
 
-- **50M+ monthly searches** for free gaming currency
-- **99% of results** are scams, generators, or bot-farm sites
-- **Players deserve better** — verified information from people who actually play
+**Every method is verified before publishing.** We don't copy-paste tips from other sites. Each guide covers methods we've confirmed work in the current version of the game, with accurate numbers for earnings, time investment, and difficulty.
 
-## Our Approach
+**We're honest about limitations.** If a method requires significant time or skill, we say so. If earnings are modest, we don't exaggerate. Players deserve accurate expectations.
 
-### 🎮 **Verified Methods Only**
-Every guide is tested by actual players. We don't recommend anything we haven't verified ourselves.
+**We update weekly.** Gaming companies patch methods, release new codes, and change their systems constantly. Guides that were accurate six months ago may be completely wrong today. We track changes and update our content on a regular schedule.
 
-### 🔍 **Scam-Busting**
-We identify which "free currency generators" are fake and explain why they don't work.
+**We call out scams explicitly.** Rather than just ignoring fake methods, we actively explain how they work and why they're dangerous. Understanding the scam makes you immune to it.
 
-### 📊 **Honest Analysis**
-We break down the math: Is that Premium worth it? What's the actual ROI? How many hours for rewards?
+## Games We Cover
 
-### 🔄 **Weekly Updates**
-Gaming companies release codes frequently. We update them as soon as they drop.
+| Game | What We Track | Update Frequency |
+|------|--------------|-----------------|
+| [Roblox](/docs/roblox/earn-free-robux-2026) | Promo codes, earning methods, Premium value | Weekly |
+| [Fortnite](/docs/fortnite/free-vbucks-guide) | V-Bucks methods, Battle Pass ROI, codes | Weekly |
+| [Mobile Legends](/docs/mobile-legends/free-diamonds-guide) | Diamond codes, event farming, Starlight | Weekly |
+| [Clash of Clans](/docs/clash-of-clans/achievements-gems-guide) | Gem mine, achievements, rare codes | Weekly |
+| [Genshin Impact](/docs/genshin-impact/free-primogems-guide) | Primogem sources, codes, pity strategy | Per version |
+| [PUBG Mobile](/docs/pubg-mobile/free-uc-guide) | UC methods, reward codes, events | Weekly |
+| [Minecraft](/docs/minecraft/free-minecoins-guide) | Minecoins via Microsoft Rewards, codes | Monthly |
+| [EA FC 25](/docs/fifa-fc25/free-fc-points-guide) | Coins, pack methods, transfer market | Weekly |
 
-### 👥 **Community-Focused**
-Your feedback helps us improve. Tell us what works, what doesn't, and we'll investigate.
+## Our Standards
 
-## What We Cover
+**We never:**
+- Recommend currency generators (they are 100% scams with no exceptions)
+- Ask for your game account password or credentials
+- Link to third-party "free currency" sites
+- Publish affiliate links to sketchy tools or services
+- Exaggerate earnings to make methods sound better than they are
 
-- **[Roblox](../docs/roblox/earn-free-robux-2026)** — The platform where players spend billions on accessories
-- **[Fortnite](../docs/fortnite/free-vbucks-guide)** — Battle royale currency and cosmetics
-- **[Mobile Legends](../docs/mobile-legends/free-diamonds-guide)** — MOBA diamonds and battle passes
-- **[Clash of Clans](../docs/clash-of-clans/achievements-gems-guide)** — Strategic gems for faster upgrades
+**We always:**
+- Verify methods ourselves or through confirmed player reports
+- Cite official sources when referencing game mechanics
+- Note when information may be outdated or region-specific
+- Update guides promptly when a method changes or expires
 
-## Team
+## E-E-A-T: Our Expertise and Experience
 
-**Gaming Coins Hub** is run by gaming enthusiasts who've spent thousands of hours in these games. We know the pain points and the legitimate ways to progress without spending money.
+Gaming Coins Hub is operated by gaming enthusiasts who actively play the games we cover. Our team has:
 
-## No BS, No Scams
+- **Thousands of hours** played across all 8 games we cover
+- **First-hand testing** of every major earning method featured in our guides
+- **Active community monitoring** across Reddit, Discord, and official game channels
+- **Weekly code verification** — we test every code before listing it
 
-We **don't**:
-- Promote currency generators (they don't work)
-- Ask for your password or personal info
-- Require app downloads for "free currency"
-- Partner with sketchy third-party sites
+We're transparent about our identity: this is an independent publication, not affiliated with Roblox Corporation, Epic Games, Moonton, Supercell, HoYoverse, Krafton, Mojang, or EA.
 
-We **do**:
-- Recommend official game methods
-- Provide verified promo codes
-- Explain the legitimate grind strategies
-- Update frequently with new findings
+## How to Use This Site
 
-## Our Credibility
+**If you're looking for promo codes:** Every game section has a dedicated "Working Codes" page updated every Monday. Bookmark it and check weekly.
 
-- ✅ **Transparent**: All methods verified by our team
-- ✅ **Honest**: We admit when methods are patched or outdated
-- ✅ **Up-to-date**: Weekly updates for new codes and strategies
-- ✅ **No Affiliate Spam**: We don't push sketchy links or generators
-- ✅ **Player-First**: Every guide prioritizes your account safety
+**If you want a long-term earning strategy:** Start with the main guide for your game (e.g., [How to Earn Free Robux](/docs/roblox/earn-free-robux-2026)). These cover all methods ranked by effort and return.
 
-## Contact & Feedback
+**If you're trying to stay safe:** Read our [FAQ](/docs/faq) for a full breakdown of how scams operate and how to spot them before you get caught.
 
-Found a new method? Think we got something wrong? Have questions?
-
-Your feedback helps us improve. Send us suggestions or corrections on GitHub or reach out through social media.
+**If you found a bug or outdated info:** Contact us via [Twitter/X @GamingCoinsHub](https://twitter.com/GamingCoinsHub) or open an issue on our [GitHub repo](https://github.com/yamajid/GAMING_SITE).
 
 ## Disclaimer
 
-We are not affiliated with Roblox Corporation, Epic Games, Moonton, or Supercell. We're an independent community resource. Always use official channels to claim free currency.
+Gaming Coins Hub is not affiliated with, endorsed by, or sponsored by any of the game developers or publishers mentioned on this site. All trademarks, game names, and logos are property of their respective owners.
+
+Our guides are provided for informational purposes only. Always follow each game's terms of service when pursuing in-game currency.
 
 ---
 
-**Last Updated:** March 14, 2026
-
-**Maintained by:** Gaming Guide Authors & Tested by Community Players
+*Last updated: March 15, 2026*

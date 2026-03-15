@@ -7,6 +7,23 @@ keywords: [genshin impact codes 2026, genshin primogem codes, genshin redeem cod
 tags: [Genshin Impact, Primogems, Promo Codes]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg
+  type="howto"
+  title="How to Redeem Genshin Impact Codes"
+  description="Step-by-step guide to redeeming Genshin Impact codes for free Primogems."
+  steps={[
+    "Go to genshin.hoyoverse.com/en/gift in your browser",
+    "Log in with your HoYoverse account",
+    "Select your game server from the dropdown",
+    "Enter the redemption code in the text field",
+    "Click Exchange and collect rewards from your in-game mailbox"
+  ]}
+/>
+
+
+
 # Genshin Impact Codes — March 2026
 
 **Last verified:** March 15, 2026 ✅
@@ -65,3 +82,28 @@ Three livestream codes typically give 300 Primogems total — equivalent to almo
 ---
 
 *For a complete guide to earning free Primogems beyond codes, see our [full Primogem farming guide](/docs/genshin-impact/free-primogems-guide).*
+
+## How to Maximize Code Primogems
+
+Each livestream code gives 60–100 Primogems. With 3 codes per version, that's 180–300 Primogems per 6-week cycle — almost 2 full wishes just from watching a 30-minute stream. Here's how to never miss them:
+
+**Set a calendar reminder** for every Genshin Impact version preview stream. HoYoverse announces stream dates 1–2 weeks in advance on their official channels. The streams always follow the same format: new character reveals, new area previews, and exactly 3 codes shared during the broadcast.
+
+**Redeem immediately** — livestream codes have a very short window (typically 12–24 hours). By the time you see a code posted on Reddit, it may already be hours old.
+
+**Multiple redemption methods:**
+- Web browser: [genshin.hoyoverse.com/en/gift](https://genshin.hoyoverse.com/en/gift)
+- In-game: Settings → Account → Redeem Now (Hoyo account required)
+- HoYoLAB app: Redeem directly from the companion app
+
+## Do Genshin Codes Give Real Wishes?
+
+Codes give **Primogems**, not Intertwined Fates directly. You convert Primogems to fates at a rate of 160 Primogems per fate (1 wish).
+
+Three typical codes giving 300 Primogems total = 1.875 wishes. Not life-changing alone, but meaningful when stacked with your monthly earnings from daily commissions, Abyss, and events. See our [full Primogem farming guide](/docs/genshin-impact/free-primogems-guide) to maximize total monthly wishes.
+
+## HoYoLAB Daily Check-In
+
+The HoYoLAB companion app (separate from the game) has a daily check-in feature that gives small rewards including occasional Primogems. After 30 days of consecutive check-ins, the rewards cycle includes 1–3 Primogems on select days. It takes 30 seconds to claim via the app or web browser.
+
+Not a major source, but it's passive and free — set a daily reminder and it adds up over months.
