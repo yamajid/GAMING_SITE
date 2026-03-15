@@ -7,6 +7,23 @@ keywords: [clash of clans codes 2026, coc redeem codes, free gems clash of clans
 tags: [Clash of Clans, Promo Codes, Gems]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg
+  type="howto"
+  title="How to Redeem Clash of Clans Codes"
+  description="Step-by-step guide to redeeming Clash of Clans promo codes."
+  steps={[
+    "Open Clash of Clans",
+    "Tap Settings then More Settings",
+    "Scroll down and tap Redeem",
+    "Enter the code",
+    "Tap Redeem to confirm and receive rewards"
+  ]}
+/>
+
+
+
 # Clash of Clans Codes — March 2026
 
 **Last verified:** March 15, 2026 ✅

@@ -7,6 +7,23 @@ keywords: [pubg mobile codes 2026, pubg redeem codes, free uc codes pubg, pubg m
 tags: [PUBG Mobile, Promo Codes, UC]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg
+  type="howto"
+  title="How to Redeem PUBG Mobile Codes"
+  description="Step-by-step guide to redeeming PUBG Mobile codes for free rewards."
+  steps={[
+    "Open PUBG Mobile",
+    "Tap your profile picture top left",
+    "Tap Events in the menu",
+    "Find and tap Redeem",
+    "Enter the code and confirm"
+  ]}
+/>
+
+
+
 # PUBG Mobile Codes — March 2026
 
 **Last verified:** March 15, 2026 ✅

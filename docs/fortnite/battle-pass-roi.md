@@ -7,6 +7,12 @@ keywords: [fortnite battle pass worth it, battle pass vbucks return, fortnite ba
 tags: [Fortnite, Battle Pass, V-Bucks]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="Fortnite Battle Pass ROI 2026" description="Is the Fortnite Battle Pass worth buying? Full V-Bucks return analysis." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
+
 # Fortnite Battle Pass ROI — Is It Worth It in 2026?
 
 **Short answer:** Yes — if you hit level 100+, the Battle Pass pays for itself and you profit V-Bucks for the next season. Here's the full breakdown.

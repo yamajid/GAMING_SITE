@@ -7,6 +7,23 @@ keywords: [minecraft codes 2026, minecraft promo codes, free minecoins codes, mi
 tags: [Minecraft, Minecoins, Promo Codes]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg
+  type="howto"
+  title="How to Redeem Minecraft Codes"
+  description="Step-by-step guide to redeeming Minecraft promo codes for free Minecoins."
+  steps={[
+    "Go to minecraft.net/redeem in your browser",
+    "Log in with your Microsoft account",
+    "Enter the redemption code",
+    "Click Redeem to confirm",
+    "Launch Minecraft to receive your reward"
+  ]}
+/>
+
+
+
 # Minecraft Codes — March 2026
 
 **Last verified:** March 15, 2026 ✅

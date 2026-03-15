@@ -1,0 +1,30 @@
+<svg width="720" height="200" viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="720" height="200" fill="#fefce8" rx="12"/>
+  <text x="360" y="28" text-anchor="middle" fill="#333" font-size="15" font-weight="bold">Clash of Clans — Free Gems Per Month</text>
+  <!-- Gem Mine -->
+  <rect x="40" y="50" width="120" height="80" fill="#f59e0b" rx="8"/>
+  <text x="100" y="85" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Gem Mine</text>
+  <text x="100" y="103" text-anchor="middle" fill="white" font-size="22" font-weight="bold">240</text>
+  <text x="100" y="120" text-anchor="middle" fill="#fffbeb" font-size="11">gems/month</text>
+  <text x="100" y="148" text-anchor="middle" fill="#777" font-size="11">Passive forever</text>
+  <!-- Google Rewards -->
+  <rect x="190" y="50" width="120" height="80" fill="#4a90d9" rx="8"/>
+  <text x="250" y="78" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Google Opinion</text>
+  <text x="250" y="93" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Rewards</text>
+  <text x="250" y="115" text-anchor="middle" fill="white" font-size="20" font-weight="bold">300–1K</text>
+  <text x="250" y="132" text-anchor="middle" fill="#dbeafe" font-size="11">gems/month</text>
+  <text x="250" y="148" text-anchor="middle" fill="#777" font-size="11">Android only</text>
+  <!-- Clan Games -->
+  <rect x="340" y="50" width="120" height="80" fill="#48bb78" rx="8"/>
+  <text x="400" y="85" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Clan Games</text>
+  <text x="400" y="108" text-anchor="middle" fill="white" font-size="20" font-weight="bold">50–200</text>
+  <text x="400" y="125" text-anchor="middle" fill="#f0fdf4" font-size="11">gems/month</text>
+  <text x="400" y="148" text-anchor="middle" fill="#777" font-size="11">Monthly event</text>
+  <!-- Achievements -->
+  <rect x="490" y="50" width="120" height="80" fill="#a78bfa" rx="8"/>
+  <text x="550" y="78" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Achievements</text>
+  <text x="550" y="100" text-anchor="middle" fill="white" font-size="20" font-weight="bold">2,000+</text>
+  <text x="550" y="117" text-anchor="middle" fill="#ede9fe" font-size="11">total (one-time)</text>
+  <text x="550" y="148" text-anchor="middle" fill="#777" font-size="11">New players only</text>
+  <text x="360" y="185" text-anchor="middle" fill="#888" font-size="11">Combine all sources for up to 1,940 free gems per month</text>
+</svg>

@@ -7,6 +7,12 @@ keywords: [free minecoins minecraft, minecraft minecoins 2026, how to get free m
 tags: [Minecraft, Minecoins, Free-to-Play]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="How to Get Free Minecoins in Minecraft 2026" description="Complete guide to earning free Minecoins via Microsoft Rewards and promotions." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
+
 # How to Get Free Minecoins in Minecraft 2026
 
 Minecoins are Minecraft Bedrock Edition's currency — used to buy skins, texture packs, maps, and Marketplace content. Here are the legitimate ways to earn them for free.

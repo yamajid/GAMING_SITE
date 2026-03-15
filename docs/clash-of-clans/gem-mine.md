@@ -7,6 +7,12 @@ keywords: [clash of clans gem mine, coc gem mine worth it, gem mine production 2
 tags: [Clash of Clans, Gem Mine, Free Gems]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="Clash of Clans Gem Mine Guide 2026" description="Is the CoC Gem Mine worth upgrading? Full level-by-level gem production breakdown." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
+
 # Clash of Clans Gem Mine Guide 2026
 
 The Gem Mine is one of the best long-term investments in Clash of Clans — it produces free gems passively, forever, once built. Here's everything you need to know.

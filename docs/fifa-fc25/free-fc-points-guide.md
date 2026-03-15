@@ -7,6 +7,12 @@ keywords: [free fc points ea fc 25, ea fc 25 free coins, ultimate team coins gui
 tags: [EA FC 25, Ultimate Team, Free-to-Play]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="How to Get Free FC Points and Coins in EA FC 25" description="Complete guide to earning free coins in EA FC 25 Ultimate Team in 2026." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
+
 # Free FC Points and Coins in EA FC 25 — 2026 Guide
 
 EA FC 25 Ultimate Team has two currencies: **FC Points** (premium, real money) and **Coins** (earned in-game). This guide focuses on maximizing your free coins and minimizing or eliminating the need to spend real money.

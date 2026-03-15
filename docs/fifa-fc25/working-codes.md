@@ -7,6 +7,12 @@ keywords: [ea fc 25 codes 2026, ea fc promo codes, free packs ea fc 25, ea fc 25
 tags: [EA FC 25, Promo Codes, Ultimate Team]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="EA FC 25 Promo Codes March 2026" description="Working EA FC 25 promo codes for free packs and coins in 2026." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
+
 # EA FC 25 Promo Codes — March 2026
 
 **Last verified:** March 15, 2026 ✅

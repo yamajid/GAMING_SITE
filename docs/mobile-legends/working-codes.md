@@ -7,6 +7,23 @@ keywords: [mobile legends codes 2026, mlbb redeem codes, free diamonds mobile le
 tags: [Mobile Legends, Promo Codes, Diamonds]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg
+  type="howto"
+  title="How to Redeem Mobile Legends Codes"
+  description="Step-by-step guide to redeeming MLBB codes for free diamonds."
+  steps={[
+    "Open Mobile Legends Bang Bang",
+    "Tap your profile avatar top left",
+    "Tap the Redeem button",
+    "Enter the code exactly as shown",
+    "Tap Exchange and collect from your mailbox"
+  ]}
+/>
+
+
+
 # Mobile Legends Codes — March 2026
 
 **Last verified:** March 15, 2026 ✅

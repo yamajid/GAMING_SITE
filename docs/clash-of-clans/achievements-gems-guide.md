@@ -12,7 +12,16 @@ date: 2026-03-14
 tags: [Clash of Clans, Free Gems, Strategy]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="Every Achievement That Gives Gems in Clash of Clans" description="Complete list of Clash of Clans achievements that reward gems in 2026." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
+
 # Every Clash of Clans Achievement That Gives Gems
+
+
+![Visual guide for achievements-gems-guide](/img/guides/clash-gems-sources.svg)
 
 **Last updated:** March 14, 2026 (Updated Today ✅)
 

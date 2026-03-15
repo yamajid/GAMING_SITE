@@ -12,7 +12,16 @@ date: 2026-03-14
 tags: [Mobile Legends, Free Diamonds, MOBA]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="How to Get Free Diamonds in Mobile Legends 2026" description="Complete guide to earning free diamonds in Mobile Legends Bang Bang." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
+
 # How to Get Free Diamonds in Mobile Legends 2026
+
+
+![Visual guide for free-diamonds-guide](/img/guides/mobile-legends-diamonds.svg)
 
 **Last updated:** March 14, 2026 (Updated Today ✅)
 

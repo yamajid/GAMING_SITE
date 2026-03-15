@@ -22,6 +22,9 @@ import SchemaOrg from '@site/src/components/SchemaOrg';
 
 # How to Get Free V-Bucks Without Spending Money in 2026
 
+
+![Visual guide for free-vbucks-guide](/img/guides/fortnite-vbucks-methods.svg)
+
 **Last updated:** March 14, 2026 (Updated Today ✅)
 
 :::tip Quick Answer

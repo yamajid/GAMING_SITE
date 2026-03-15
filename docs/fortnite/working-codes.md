@@ -7,6 +7,12 @@ keywords: [fortnite promo codes 2026, free vbucks codes, fortnite codes march 20
 tags: [Fortnite, Promo Codes, V-Bucks]
 ---
 
+import SchemaOrg from '@site/src/components/SchemaOrg';
+
+<SchemaOrg type="article" title="Fortnite Promo Codes March 2026" description="Working Fortnite promo codes and free V-Bucks methods for March 2026." datePublished="2026-01-01" dateModified="2026-03-15" />
+
+
+
 # Fortnite Promo Codes — March 2026
 
 **Last verified:** March 15, 2026 ✅

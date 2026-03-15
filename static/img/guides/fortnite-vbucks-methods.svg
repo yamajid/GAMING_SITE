@@ -1,0 +1,20 @@
+<svg width="720" height="220" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="720" height="220" fill="#0d1117" rx="12"/>
+  <text x="360" y="30" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">Fortnite — Free V-Bucks Methods Ranked</text>
+  <!-- Battle Pass -->
+  <rect x="40" y="50" width="160" height="40" fill="#7b2fff" rx="8"/>
+  <text x="120" y="75" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Battle Pass Loop</text>
+  <text x="230" y="68" fill="#ccc" font-size="12">Cost: 950 V-Bucks once</text>
+  <text x="230" y="85" fill="#7b2fff" font-size="12" font-weight="bold">Earn back: 1,500+ V-Bucks per season ✓</text>
+  <!-- Save the World -->
+  <rect x="40" y="105" width="160" height="40" fill="#4a90d9" rx="8"/>
+  <text x="120" y="130" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Save the World</text>
+  <text x="230" y="122" fill="#ccc" font-size="12">Cost: $15 one-time</text>
+  <text x="230" y="138" fill="#4a90d9" font-size="12" font-weight="bold">Earn: 50–100 V-Bucks/day ongoing</text>
+  <!-- Crew -->
+  <rect x="40" y="158" width="160" height="40" fill="#48bb78" rx="8"/>
+  <text x="120" y="183" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Fortnite Crew</text>
+  <text x="230" y="176" fill="#ccc" font-size="12">Cost: $11.99/month</text>
+  <text x="230" y="192" fill="#48bb78" font-size="12" font-weight="bold">Earn: 1,000 V-Bucks + Battle Pass included</text>
+  <text x="360" y="215" text-anchor="middle" fill="#666" font-size="11">Free V-Bucks generators do not exist — avoid all third-party sites</text>
+</svg>

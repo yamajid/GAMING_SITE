@@ -112,7 +112,7 @@ const config: Config = {
       title: '🎮 Gaming Coins Hub',
       logo: {
         alt: 'Gaming Coins Hub Logo',
-        src: 'img/logo.png',
+        src: 'img/logo.svg',
         srcDark: 'img/logo-dark.svg',
       },
       items: [
